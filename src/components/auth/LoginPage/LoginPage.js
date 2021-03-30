@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginForm from './LoginForm';
+import { login } from '../../../api/auth';
 
 const LoginPage = () => {
-  const handleSubmit = (credentials) => {
-    console.log('LoginPage --> submit:');
-    console.log('LoginPage --> credentials:', credentials);
-    // enviar credenciales al API para autenticación
-    // console.log(credentials);
+  const handleSubmit = async (credentials) => {
+    try {
+      await login(credentials);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

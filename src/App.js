@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import './App.css';
 import Layout from './components/layout/Layout';
 
-function App() {
+function App(props) {
+  const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
+
   return (
     <>
       <Layout />
