@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const FormField = (props) => {
-  // const handleChange = (e) => {
-  //   props.onChange(e);
-  // };
-
   return (
     <div>
       <label className="formFieldLabel">
