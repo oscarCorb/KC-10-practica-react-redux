@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from './Header';
+import CreateNewProductPage from '../products/CreateNewProductPage';
 
 const Layout = () => {
   return (
     <>
-      <p>Layout page</p>
-      <Header />
+      <CreateNewProductPage />
     </>
   );
 };
