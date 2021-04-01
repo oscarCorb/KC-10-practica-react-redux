@@ -1,9 +1,10 @@
 import React from 'react';
+import './Header.css';
 
 const Header = () => {
   return (
     <div className="header">
-      <p>Header page</p>
+      <h1>Nodepop React</h1>
     </div>
   );
 };
