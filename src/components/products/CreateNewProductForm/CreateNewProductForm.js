@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
+
 import { getTags } from '../../../api/products';
+
 import FormField from '../../shared/FormField';
+import Button from '../../shared/Button';
+import placeholderImage from '../../../assets/image_placeholder.png';
 
 const CreateNewProductForm = (props) => {
   const [inputValues, setInputValues] = useState({
-    productName: '',
-    productPrice: '',
-    productTags: [],
-    productPicture: '',
+    name: '',
+    price: '',
+    tags: [],
+    photo: '',
   });
-  const [onSaleValue, onSaleInputProps] = useRadioButtons('productsOnSale');
+  const [onSaleValue, onSaleInputProps] = useRadioButtons('sale');
 
+  // TODO: solucionar esto:
+  // ??? creo que estoy manejando los estados dos veces ???
+  // hacer la petición de los tags en un componente independiente
   const [tags, setTags] = useState([]);
-
   useEffect(() => {
     const getTagList = async () => {
       const tags = await getTags();
@@ -35,42 +41,54 @@ const CreateNewProductForm = (props) => {
     }
     setInputValues((oldValues) => ({
       ...oldValues,
-      productTags: tags,
+      tags: tags,
     }));
   };
 
+  const handleChangeUploadImg = (e) => {
+    if (e.target.files.length) {
+      setInputValues((oldValues) => ({
+        ...oldValues,
+        photo: e.target.files[0],
+      }));
+    }
+  };
+
   const handleSubmit = (event) => {
+    inputValues.price = inputValues.price * 1;
+    inputValues.sale = !!inputValues.sale;
+    // !inputValues.photo
+    //   ? (inputValues.photo = placeholderImage)
+    //   : null;
     event.preventDefault();
     props.onSubmit(inputValues);
     setInputValues({
-      productName: '',
-      productPrice: '',
-      productOnSale: '',
-      productTags: [],
-      productPicture: '',
+      name: '',
+      price: '',
+      sale: '',
+      tags: [],
+      photo: '',
     });
   };
 
-  // getTags()
-  // Tags();
-  console.log('inputValues', inputValues);
+  // console.log('inputValues', inputValues); // obj with all form info
 
   return (
     <form className="createNewProductForm" onSubmit={handleSubmit}>
       <FormField
         type="text"
-        name="productName"
+        name="name"
         label="Nombre del producto"
-        value={inputValues.productName}
+        value={inputValues.name}
         className="createNewProductForm-field"
         onChange={handleChange}
         autofocus
       />
       <FormField
         type="number"
-        name="productPrice"
+        name="price"
         label="Precio"
-        value={inputValues.productPrice}
+        value={inputValues.price}
         className="createNewProductForm-field"
         onChange={handleChange}
       />
@@ -105,7 +123,7 @@ const CreateNewProductForm = (props) => {
         Categorías
         <fieldset>
           <select
-            value={inputValues.productTags}
+            value={inputValues.tags}
             multiple={true}
             onChange={(e) => {
               handleSelect(e.target.selectedOptions);
@@ -121,6 +139,15 @@ const CreateNewProductForm = (props) => {
       </label>
 
       {/* FOTO */}
+      <input
+        type="file"
+        id="uploadFileButton"
+        onChange={handleChangeUploadImg}
+      ></input>
+
+      {/* BOTÓN xxx */}
+
+      <Button buttonText="Enviar" onClick={handleSubmit}></Button>
     </form>
   );
 };
