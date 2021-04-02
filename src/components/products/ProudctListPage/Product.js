@@ -1,6 +1,8 @@
 import React from 'react';
 
 import './Product.css';
+import Button from '../../shared/Button';
+import { Link } from 'react-router-dom';
 
 const Product = (props) => {
   return (
@@ -15,6 +17,10 @@ const Product = (props) => {
                 <div>Categorías: {product.tags}</div>
                 <div>{product.sale ? '"Vendo"' : '"Compro"'}</div>
                 <div>{product.photo}</div>
+
+                <Link to={`/advert/${product.id}`}>
+                  <Button buttonText="ver" />
+                </Link>
               </div>
             </li>
           );

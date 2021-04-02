@@ -6,10 +6,7 @@ import Product from './Product';
 const ProductList = (props) => {
   return (
     <ul className="product-list">
-      {/* <Link to={`/advert/${product.id}`}> */}
-      <Link to="/">
-        <Product {...props} />
-      </Link>
+      <Product {...props} />
     </ul>
   );
 };
