@@ -12,9 +12,15 @@ function App(props) {
   const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
   return (
     <Router>
-      <Route>
+      {/* <Route>
         <Redirect to={{ pathname: '/login' }} />
+      </Route> */}
+
+      <Route path="/">
+        {/* cuando recargas, te lleva directo a esta */}
+        <Redirect to="/adverts" />
       </Route>
+
       <Route path="/login" component={LoginPage} />
       <Route path="/adverts" exact component={ProudctListPage} />
       <Route path="/advert/new" component={CreateNewProductPage} />
