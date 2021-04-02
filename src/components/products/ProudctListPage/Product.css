@@ -1,0 +1,21 @@
+a {
+  text-decoration: none;
+}
+
+li {
+  display: block;
+}
+
+article {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.product-list-wrapper {
+}
+
+.product-wrapper {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px 0;
+}

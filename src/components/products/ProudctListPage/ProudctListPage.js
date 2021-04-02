@@ -21,7 +21,6 @@ const ProudctListPage = () => {
   return (
     <div>
       <Layout />
-      <h2>Product List page</h2>
 
       {productList.length ? (
         <ProductList productList={productList} />
