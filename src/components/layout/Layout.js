@@ -1,13 +1,11 @@
 import React from 'react';
-import CreateNewProductPage from '../products/CreateNewProductPage';
-import LoginPage from '../auth/LoginPage';
+import Header from './Header';
 
 const Layout = () => {
   return (
-    <>
-      {/* <LoginPage /> */}
-      <CreateNewProductPage />
-    </>
+    <div className="layout">
+      <Header className="layout-header" />
+    </div>
   );
 };
 
