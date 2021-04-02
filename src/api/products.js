@@ -29,3 +29,9 @@ export const createProduct = (product) => {
       .catch((error) => console.error(error))
   );
 };
+
+// pedir listado de productos
+export const getProductList = () => {
+  const url = `${productsBaseUrl}`;
+  return client.get(url);
+};
