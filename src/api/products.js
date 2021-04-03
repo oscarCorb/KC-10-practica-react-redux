@@ -1,14 +1,14 @@
 import client from './client';
 
-const productsBaseUrl = '/api/v1/adverts';
+const productsBaseUrl = '/api/v1';
 
 export const getTags = () => {
-  const url = `${productsBaseUrl}/tags`;
+  const url = `${productsBaseUrl}/adverts/tags`;
   return client.get(url);
 };
 
 export const createProduct = (product) => {
-  const url = `${productsBaseUrl}`;
+  const url = `${productsBaseUrl}/adverts`;
 
   const file = new Blob([product.photo], { type: 'multipart/form-data' });
   const formData = new FormData();
@@ -32,6 +32,12 @@ export const createProduct = (product) => {
 
 // pedir listado de productos
 export const getProductList = () => {
-  const url = `${productsBaseUrl}`;
+  const url = `${productsBaseUrl}/adverts`;
+  return client.get(url);
+};
+
+// pedir un producto
+export const getProduct = (id) => {
+  const url = `${productsBaseUrl}/adverts/${id}`;
   return client.get(url);
 };

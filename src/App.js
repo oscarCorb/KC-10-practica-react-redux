@@ -10,6 +10,10 @@ import ProudctListPage from './components/products/ProudctListPage/ProudctListPa
 
 function App(props) {
   const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
+  // aquí debería ir el ID del product Detail para cambiarlo abajo por :id
+  // ahora no tiene valor porque no lo estoy trayendo de ningún sitio
+  // const [productDetailId, setProductDetailId] = useState('');
+
   return (
     <Router>
       {/* <Route>
@@ -25,6 +29,7 @@ function App(props) {
       <Route path="/adverts" exact component={ProudctListPage} />
       <Route path="/advert/new" component={CreateNewProductPage} />
       <Route path="/adverts/:id" component={ProudctDetailPage} />
+      {/* <Route path={`/adverts/${productDetailId}`} component={ProudctDetailPage} /> */}
       {/* // Hacer página NOT FOUND */}
       {/* <Route path="/advert/new" component="" /> */}
     </Router>
