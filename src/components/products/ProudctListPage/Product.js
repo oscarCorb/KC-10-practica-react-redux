@@ -18,7 +18,7 @@ const Product = (props) => {
                 <div>{product.price.toFixed(2).replace('.', ',')} €</div>
                 <div>Categorías: {product.tags}</div>
                 <div>{product.sale ? '"Vendo"' : '"Compro"'}</div>
-                <Link to={`/adverts/${product.id}`}>
+                <Link to={`/advert/${product.id}`}>
                   <Button buttonText="ver" />
                 </Link>
               </div>

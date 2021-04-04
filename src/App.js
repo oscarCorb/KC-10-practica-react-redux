@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
 
 import './App.css';
 
@@ -15,24 +15,18 @@ function App(props) {
   // const [productDetailId, setProductDetailId] = useState('');
 
   return (
-    <Router>
-      {/* <Route>
-        <Redirect to={{ pathname: '/login' }} />
-      </Route> */}
-
+    <Switch>
+      <Route path="/advert/new" component={CreateNewProductPage} />
+      <Route path="/advert/:id" component={ProudctDetailPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/adverts" component={ProudctListPage} />
       <Route path="/">
-        {/* cuando recargas, te lleva directo a esta */}
         <Redirect to="/adverts" />
       </Route>
 
-      <Route path="/login" component={LoginPage} />
-      <Route path="/adverts" exact component={ProudctListPage} />
-      <Route path="/advert/new" component={CreateNewProductPage} />
-      <Route path="/adverts/:id" component={ProudctDetailPage} />
-      {/* <Route path={`/adverts/${productDetailId}`} component={ProudctDetailPage} /> */}
+      {/* ProudctDetailPage} /> */}
       {/* // Hacer página NOT FOUND */}
-      {/* <Route path="/advert/new" component="" /> */}
-    </Router>
+    </Switch>
   );
 }
 
