@@ -5,6 +5,7 @@ import './App.css';
 
 import LoginPage from './components/auth/LoginPage';
 import CreateNewProductPage from './components/products/CreateNewProductPage';
+import NotFoundPage from './components/products/NotFoundPage/NotFoundPage';
 import ProudctDetailPage from './components/products/ProudctDetailPage/ProudctDetailPage';
 import ProudctListPage from './components/products/ProudctListPage/ProudctListPage';
 
@@ -20,12 +21,10 @@ function App(props) {
       <Route path="/advert/:id" component={ProudctDetailPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/adverts" component={ProudctListPage} />
-      <Route path="/">
+      <Route exact path="/">
         <Redirect to="/adverts" />
       </Route>
-
-      {/* ProudctDetailPage} /> */}
-      {/* // Hacer página NOT FOUND */}
+      <Route path="/" component={NotFoundPage}></Route>
     </Switch>
   );
 }
