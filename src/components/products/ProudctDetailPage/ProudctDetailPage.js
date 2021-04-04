@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { getProduct } from '../../../api/products';
 import Layout from '../../layout/Layout';
+import './ProudctDetailPage.css';
+import placeholderImg from '../../../assets/image_placeholder.png';
+import Button from '../../shared/Button';
 
 const ProudctDetailPage = (props) => {
-  const [product, setProduct] = useState({});
+  // NOTA: es mejor inicializar product a null. Y para que funcione bien, hay que poner una
+  // condición para que en el primer render, cuando product todavía es null, no renderice nada
+  const [product, setProduct] = useState(null);
   const productId = props.match.params.id;
-
-  console.log(product);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     getProduct(productId)
@@ -15,25 +19,32 @@ const ProudctDetailPage = (props) => {
   }, []);
 
   return (
-    <>
-      <Layout />
-      <article className="product-detail-container">
-        <h2 className="product-detail-title">{product.name}</h2>
-        {/*** si no puedo abrir directamente en el navegador la foto de la imagen, es que hay algo mal hecho
-        MIRAR A VER SI ES UN PROBLEMA CON LAS REDIRECCIONES - TIENE PINTA
-         */}
-        {/* client.js =>
-         const client = axios.create({ baseURL: process.env.REACT_APP_API_BASE_URL });
-         */}
-        {/* probar a cambiar url hardcoded por ${process.env} pero cuidado con el
-        "adverts", que se repite. Habrá que retocar el archivo donde esté */}
-        <img src={`${product.photo}`} alt={product.name} />
-        <p>{product.price}</p>
-        <p>{product.tags}</p>
-        <p>{product.sale}</p>
-        {/* botón eliminar producto */}
-      </article>
-    </>
+    product && (
+      <>
+        <Layout />
+        <main className="product-detail-container">
+          <div className="product-detail-wrapper">
+            <h2 className="product-detail-title">{product.name}</h2>
+            <img
+              src={product.photo ? `${baseUrl}${product.photo}` : placeholderImg}
+            />
+            <div className="product-details">
+              <p className="product-detail-price">
+                {product.price && product.price.toFixed(2).replace('.', ',')} €
+              </p>
+              <p className="product-detail-tags">
+                Categorías:{' '}
+                {product.tags && product.tags.map((tag) => tag).join(', ')}
+              </p>
+              <p className="product-detail-sale">
+                Anuncio de
+                {product.sale ? ' venta' : ' compra'}
+              </p>
+            </div>
+          </div>
+        </main>
+      </>
+    )
   );
 };
 

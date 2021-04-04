@@ -1,0 +1,26 @@
+img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.product-detail-container {
+  background-color: rgb(249, 244, 244);
+
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.product-detail-title,
+.product-details {
+  padding: 0 10px;
+}
+
+.product-detail-wrapper {
+  margin: 0 auto;
+  width: 350px;
+  /* border: 1px red solid; */
+}
+
+.product-detail-price {
+  font-weight: bold;
+}
