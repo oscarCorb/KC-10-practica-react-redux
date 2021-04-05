@@ -1,11 +1,4 @@
 .button {
-  /* padding: 5px 10px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 5px;
-  text-align: center; */
-
+  margin-top: 12px;
   text-transform: uppercase;
 }

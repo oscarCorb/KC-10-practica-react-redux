@@ -19,7 +19,7 @@ const Product = (props) => {
                 <div>Categorías: {product.tags}</div>
                 <div>{product.sale ? '"Vendo"' : '"Compro"'}</div>
                 <Link to={`/advert/${product.id}`}>
-                  <Button buttonText="ver" />
+                  <Button cName="is-info" buttonText="ver" />
                 </Link>
               </div>
             </li>

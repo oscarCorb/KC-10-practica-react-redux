@@ -147,7 +147,7 @@ const CreateNewProductForm = (props) => {
 
       {/* BOTÓN xxx */}
 
-      <Button buttonText="Enviar" onClick={handleSubmit}></Button>
+      <Button cName="is-info" buttonText="Enviar" onClick={handleSubmit}></Button>
     </form>
   );
 };

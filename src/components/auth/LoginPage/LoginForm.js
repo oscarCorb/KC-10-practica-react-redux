@@ -43,7 +43,7 @@ const LoginForm = (props) => {
         onChange={handleChange}
       />
 
-      <Button type="button" buttonText="Enviar"></Button>
+      <Button cName="is-info" type="button" buttonText="Enviar"></Button>
     </form>
   );
 };

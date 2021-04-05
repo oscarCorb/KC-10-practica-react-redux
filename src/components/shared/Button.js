@@ -3,9 +3,8 @@ import './Button.css';
 
 const Button = (props) => {
   return (
-    <button
+    <button //
       className={`button ${props.cName}`}
-      //
       onClick={props.handleClick}
     >
       {props.buttonText}
