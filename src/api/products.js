@@ -41,3 +41,9 @@ export const getProduct = (id) => {
   const url = `${productsBaseUrl}/adverts/${id}`;
   return client.get(url);
 };
+
+// eliminar un producto
+export const deleteProduct = (id) => {
+  const url = `${productsBaseUrl}/adverts/${id}`;
+  return client.delete(url);
+};

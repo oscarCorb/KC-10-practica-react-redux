@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { getProduct } from '../../../api/products';
 import Layout from '../../layout/Layout';
-import './ProudctDetailPage.css';
-import placeholderImg from '../../../assets/image_placeholder.png';
+import Modal from '../../shared/Modal';
 import Button from '../../shared/Button';
 
+import { getProduct } from '../../../api/products';
+import placeholderImg from '../../../assets/image_placeholder.png';
+
+import './ProudctDetailPage.css';
+
 const ProudctDetailPage = (props) => {
-  // NOTA: es mejor inicializar product a null. Y para que funcione bien, hay que poner una
-  // condición para que en el primer render, cuando product todavía es null, no renderice nada
+  // NOTA: es mejor inicializar product a null. Y para que funcione bien,
+  // hay que poner una condición para que en el primer render, cuando
+  // product todavía es null, no renderice nada
   const [product, setProduct] = useState(null);
+  const [displayModal, setDisplayModal] = useState(false);
   const productId = props.match.params.id;
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+  const handleClickModal = () => {
+    setDisplayModal((oldValue) => !oldValue);
+  };
 
   useEffect(() => {
     getProduct(productId)
@@ -41,6 +50,14 @@ const ProudctDetailPage = (props) => {
                 {product.sale ? ' venta' : ' compra'}
               </p>
             </div>
+            <Button
+              cName="is-danger"
+              buttonText="Eliminar"
+              handleClick={handleClickModal}
+            />
+            {displayModal && (
+              <Modal productId={product.id} setDisplayModal={setDisplayModal} />
+            )}
           </div>
         </main>
       </>
