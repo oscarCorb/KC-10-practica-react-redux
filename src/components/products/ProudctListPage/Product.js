@@ -16,7 +16,7 @@ const Product = (props) => {
               <div className="product-wrapper">
                 <div>{product.name}</div>
                 <div>{product.price.toFixed(2).replace('.', ',')} €</div>
-                <div>Categorías: {product.tags}</div>
+                <div>Categorías: {product.tags.map((tag) => tag).join(', ')}</div>
                 <div>{product.sale ? '"Vendo"' : '"Compro"'}</div>
                 <Link to={`/advert/${product.id}`}>
                   <Button cName="is-info" buttonText="ver" />
