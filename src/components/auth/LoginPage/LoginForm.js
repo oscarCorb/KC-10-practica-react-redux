@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import FormField from '../../shared/FormField';
-import Button from '../../shared/Button';
+import { FormField } from '../../shared/index';
+import { Button } from '../../shared/index';
 
 const LoginForm = (props) => {
   const [credentials, setCredentials] = useState({
