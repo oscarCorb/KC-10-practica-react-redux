@@ -21,13 +21,10 @@ export const createProduct = (product) => {
   formData.append('price', product.price);
   formData.append('tags', product.tags);
 
-  return (
-    client
-      .post(url, formData)
-      // luego necesitaré la url de la foto que me da 'data.photo'
-      .then((data) => console.log('product image:', data.photo))
-      .catch((error) => console.error(error))
-  );
+  return client
+    .post(url, formData)
+    .then((data) => data)
+    .catch((error) => console.error(error));
 };
 
 // pedir listado de productos

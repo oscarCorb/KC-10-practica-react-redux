@@ -69,6 +69,7 @@ const CreateNewProductForm = (props) => {
 
   return (
     <form className="createNewProductForm" onSubmit={handleSubmit}>
+      {/* Name/price inputs */}
       <FormField
         type="text"
         name="name"
@@ -87,6 +88,7 @@ const CreateNewProductForm = (props) => {
         onChange={handleChange}
       />
 
+      {/* // Sale radio input */}
       <label>Tipo de anuncio</label>
       <fieldset>
         <label>
@@ -112,7 +114,7 @@ const CreateNewProductForm = (props) => {
         </label>
       </fieldset>
 
-      {/* TAGS */}
+      {/* Tags */}
       <label>
         Categorías
         <fieldset>
@@ -132,15 +134,14 @@ const CreateNewProductForm = (props) => {
         </fieldset>
       </label>
 
-      {/* FOTO */}
+      {/* Image */}
       <input
         type="file"
         id="uploadFileButton"
         onChange={handleChangeUploadImg}
       ></input>
 
-      {/* BOTÓN */}
-
+      {/* Button */}
       <Button cName="is-info" buttonText="Enviar" onClick={handleSubmit}></Button>
     </form>
   );
