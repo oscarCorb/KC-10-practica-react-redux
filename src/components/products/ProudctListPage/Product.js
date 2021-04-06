@@ -5,8 +5,6 @@ import Button from '../../shared/Button';
 import { Link } from 'react-router-dom';
 
 const Product = (props) => {
-  const handleProductId = (productId) => {};
-
   return (
     <article className="product">
       <div className="product-list-wrapper">

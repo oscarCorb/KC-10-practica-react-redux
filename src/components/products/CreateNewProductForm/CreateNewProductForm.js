@@ -4,7 +4,6 @@ import { getTags } from '../../../api/products';
 
 import FormField from '../../shared/FormField';
 import Button from '../../shared/Button';
-import placeholderImage from '../../../assets/image_placeholder.png';
 
 const CreateNewProductForm = (props) => {
   const [inputValues, setInputValues] = useState({
@@ -57,9 +56,6 @@ const CreateNewProductForm = (props) => {
   const handleSubmit = (event) => {
     inputValues.price = inputValues.price * 1;
     inputValues.sale = !!inputValues.sale;
-    // !inputValues.photo
-    //   ? (inputValues.photo = placeholderImage)
-    //   : null;
     event.preventDefault();
     props.onSubmit(inputValues);
     setInputValues({
@@ -70,8 +66,6 @@ const CreateNewProductForm = (props) => {
       photo: '',
     });
   };
-
-  // console.log('inputValues', inputValues); // obj with all form info
 
   return (
     <form className="createNewProductForm" onSubmit={handleSubmit}>
@@ -118,7 +112,7 @@ const CreateNewProductForm = (props) => {
         </label>
       </fieldset>
 
-      {/* TAGS xxx */}
+      {/* TAGS */}
       <label>
         Categorías
         <fieldset>
@@ -145,7 +139,7 @@ const CreateNewProductForm = (props) => {
         onChange={handleChangeUploadImg}
       ></input>
 
-      {/* BOTÓN xxx */}
+      {/* BOTÓN */}
 
       <Button cName="is-info" buttonText="Enviar" onClick={handleSubmit}></Button>
     </form>

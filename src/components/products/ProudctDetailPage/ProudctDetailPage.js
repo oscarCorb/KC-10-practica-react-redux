@@ -43,6 +43,7 @@ const ProudctDetailPage = (props) => {
             <h2 className="product-detail-title">{product.name}</h2>
             <img
               src={product.photo ? `${baseUrl}${product.photo}` : placeholderImg}
+              alt={product.name}
             />
             <div className="product-details">
               <p className="product-detail-price">
