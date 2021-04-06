@@ -27,11 +27,10 @@ const ProudctDetailPage = (props) => {
     getProduct(productId)
       .then((product) => setProduct(product))
       .catch((error) => {
-        if (error.status === 404) {
-          console.log('es un error 404 --->', error);
-          return history.go(-1);
-        }
         console.error(error);
+        if (error.status === 404) {
+          return history.push('/');
+        }
       });
   }, []);
 
