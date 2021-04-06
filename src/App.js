@@ -11,21 +11,41 @@ import ProudctListPage from './components/products/ProudctListPage/ProudctListPa
 
 function App(props) {
   const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
-  // aquí debería ir el ID del product Detail para cambiarlo abajo por :id
-  // ahora no tiene valor porque no lo estoy trayendo de ningún sitio
-  // const [productDetailId, setProductDetailId] = useState('');
 
   return (
-    <Switch>
-      <Route path="/advert/new" component={CreateNewProductPage} />
-      <Route path="/advert/:id" component={ProudctDetailPage} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/adverts" component={ProudctListPage} />
-      <Route exact path="/">
-        <Redirect to="/adverts" />
-      </Route>
-      <Route path="/" component={NotFoundPage}></Route>
-    </Switch>
+    <Router>
+      <Switch>
+        <Route exact path="/advert/new">
+          <CreateNewProductPage />
+        </Route>
+
+        <Route path="/advert/:id" component={ProudctDetailPage}>
+          {/* {(routeProps) => <ProudctDetailPage {...routeProps} />} */}
+          {/* {(routeProps) => <ProudctDetailPage ref={ref} {...routeProps} />} */}
+          {/* <ProudctDetailPage /> */}
+        </Route>
+
+        <Route exact path="/adverts">
+          <ProudctListPage />
+        </Route>
+
+        <Route exact path="/">
+          <Redirect to="/adverts" />
+        </Route>
+
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+
+        <Route path="/404">
+          <NotFoundPage />
+        </Route>
+
+        <Route>
+          <Redirect to="/404/" />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

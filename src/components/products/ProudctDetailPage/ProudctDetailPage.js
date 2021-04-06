@@ -7,6 +7,7 @@ import { getProduct } from '../../../api/products';
 import placeholderImg from '../../../assets/image_placeholder.png';
 
 import './ProudctDetailPage.css';
+import { useHistory } from 'react-router';
 
 const ProudctDetailPage = (props) => {
   // NOTA: es mejor inicializar product a null. Y para que funcione bien,
@@ -14,6 +15,7 @@ const ProudctDetailPage = (props) => {
   // product todavía es null, no renderice nada
   const [product, setProduct] = useState(null);
   const [displayModal, setDisplayModal] = useState(false);
+  const history = useHistory();
   const productId = props.match.params.id;
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -24,7 +26,13 @@ const ProudctDetailPage = (props) => {
   useEffect(() => {
     getProduct(productId)
       .then((product) => setProduct(product))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        if (error.status === 404) {
+          console.log('es un error 404 --->', error);
+          return history.go(-1);
+        }
+        console.error(error);
+      });
   }, []);
 
   return (
