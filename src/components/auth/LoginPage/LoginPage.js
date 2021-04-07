@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginForm from './LoginForm';
 import { login } from '../../../api/auth';
 import Layout from '../../layout/Layout';
 import { useHistory } from 'react-router';
 
 const LoginPage = (props) => {
+  const [rememberMe, setRememberMe] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (credentials) => {
     try {
-      await login(credentials);
+      await login(credentials, rememberMe);
       props.setIsLogged(true);
       history.push('/');
     } catch (error) {
@@ -22,7 +23,11 @@ const LoginPage = (props) => {
     <div>
       <Layout />
       <h2>Login</h2>
-      <LoginForm onSubmit={handleSubmit} />
+      <LoginForm
+        onSubmit={handleSubmit}
+        setRememberMe={setRememberMe}
+        rememberMe={rememberMe}
+      />
     </div>
   );
 };

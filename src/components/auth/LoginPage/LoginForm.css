@@ -1,0 +1,8 @@
+.checkbox-container {
+  display: flex;
+  align-items: baseline;
+}
+
+.checkbox-container input {
+  margin-right: 5px;
+}

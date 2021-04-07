@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FormField } from '../../shared/index';
 import { Button } from '../../shared/index';
+import './LoginForm.css';
 
 const LoginForm = (props) => {
   const [credentials, setCredentials] = useState({
@@ -13,6 +14,10 @@ const LoginForm = (props) => {
       ...oldValue,
       [event.target.name]: event.target.value,
     }));
+  };
+
+  const handleClickCheckBox = () => {
+    props.setRememberMe((oldValue) => !oldValue);
   };
 
   const handleSubmit = (event) => {
@@ -44,6 +49,16 @@ const LoginForm = (props) => {
       />
 
       <Button cName="is-info" type="button" buttonText="Enviar"></Button>
+
+      <div className="checkbox-container">
+        <input
+          id="input-checkbox"
+          type="checkbox"
+          value={props.rememberMe}
+          onClick={handleClickCheckBox}
+        />
+        <label htmlFor="input-checkbox">Recordar</label>
+      </div>
     </form>
   );
 };
