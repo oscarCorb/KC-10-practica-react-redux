@@ -2,14 +2,17 @@ import client from './client';
 
 const productsBaseUrl = '/api/v1';
 
+// request tags
 export const getTags = () => {
   const url = `${productsBaseUrl}/adverts/tags`;
   return client.get(url);
 };
 
+// create a new product
 export const createProduct = (product) => {
   const url = `${productsBaseUrl}/adverts`;
 
+  // upload image as binary ===>
   const file = new Blob([product.photo], { type: 'multipart/form-data' });
   const formData = new FormData();
 
@@ -20,6 +23,7 @@ export const createProduct = (product) => {
   formData.append('sale', product.sale);
   formData.append('price', product.price);
   formData.append('tags', product.tags);
+  // upload image as binary <===
 
   return client
     .post(url, formData)
@@ -27,19 +31,19 @@ export const createProduct = (product) => {
     .catch((error) => console.error(error));
 };
 
-// pedir listado de productos
+// request all products
 export const getProductList = () => {
   const url = `${productsBaseUrl}/adverts`;
   return client.get(url);
 };
 
-// pedir un producto
+// get one product by id
 export const getProduct = (id) => {
   const url = `${productsBaseUrl}/adverts/${id}`;
   return client.get(url);
 };
 
-// eliminar un producto
+// delete one product by id
 export const deleteProduct = (id) => {
   const url = `${productsBaseUrl}/adverts/${id}`;
   return client.delete(url);
