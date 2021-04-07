@@ -16,8 +16,6 @@ function App(props) {
 
   return (
     <Router>
-      <PrivateRoute />
-
       <Switch>
         <PrivateRoute exact path="/advert/new" isLogged={isLogged}>
           <CreateNewProductPage />
@@ -33,19 +31,19 @@ function App(props) {
           <ProudctListPage />
         </PrivateRoute>
 
-        <PrivateRoute exact path="/" isLogged={isLogged}>
+        <Route exact path="/">
           <Redirect to="/adverts" />
-        </PrivateRoute>
+        </Route>
 
         <Route exact path="/login">
           <LoginPage setIsLogged={setIsLogged} />
         </Route>
 
-        <Route path="/404" isLogged={isLogged}>
+        <Route path="/404">
           <NotFoundPage />
         </Route>
 
-        <Route isLogged={isLogged}>
+        <Route>
           <Redirect to="/404/" />
         </Route>
       </Switch>
