@@ -21,7 +21,11 @@ const ProudctListPage = () => {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    getProductList().then(setProductList);
+    let reverseProductList = [];
+    getProductList().then((data) => {
+      data.forEach((item) => reverseProductList.unshift(item));
+      setProductList(reverseProductList);
+    });
   }, []);
 
   return (
