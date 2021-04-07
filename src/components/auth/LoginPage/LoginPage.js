@@ -4,12 +4,13 @@ import { login } from '../../../api/auth';
 import Layout from '../../layout/Layout';
 import { useHistory } from 'react-router';
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const history = useHistory();
 
   const handleSubmit = async (credentials) => {
     try {
       await login(credentials);
+      props.setIsLogged(true);
       history.push('/');
     } catch (error) {
       console.error(error);

@@ -13,33 +13,38 @@ import './App.css';
 
 function App(props) {
   const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
-  // console.log('props:::', props);
-  // console.log('isLogged:::', isLogged);
 
   return (
     <Router>
       <PrivateRoute />
+
       <Switch>
-        <PrivateRoute isLogged={isLogged} exact path="/advert/new">
+        <PrivateRoute exact path="/advert/new" isLogged={isLogged}>
           <CreateNewProductPage />
         </PrivateRoute>
+
         <PrivateRoute
-          isLogged={isLogged}
           path="/advert/:id"
+          isLogged={isLogged}
           component={ProudctDetailPage}
         ></PrivateRoute>
-        <PrivateRoute isLogged={isLogged} exact path="/adverts">
+
+        <PrivateRoute exact path="/adverts" isLogged={isLogged}>
           <ProudctListPage />
         </PrivateRoute>
-        <PrivateRoute isLogged={isLogged} exact path="/">
+
+        <PrivateRoute exact path="/" isLogged={isLogged}>
           <Redirect to="/adverts" />
         </PrivateRoute>
+
         <Route exact path="/login">
-          <LoginPage />
+          <LoginPage setIsLogged={setIsLogged} />
         </Route>
-        <Route isLogged={isLogged} path="/404">
+
+        <Route path="/404" isLogged={isLogged}>
           <NotFoundPage />
         </Route>
+
         <Route isLogged={isLogged}>
           <Redirect to="/404/" />
         </Route>
