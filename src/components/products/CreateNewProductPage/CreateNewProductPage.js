@@ -9,9 +9,9 @@ import { useHistory } from 'react-router';
 const CreateNewProductPage = () => {
   const history = useHistory();
 
-  const handleSubmit = (newProductData) => {
+  const handleSubmit = async (newProductData) => {
     try {
-      createProduct(newProductData);
+      await createProduct(newProductData);
       history.push('/');
       // TODO: (si hay tiempo) mostrar 'producto creado correctamente'
     } catch (error) {
