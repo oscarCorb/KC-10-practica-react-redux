@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext, { AuthContextConsumer } from '../auth/context';
 import './Header.css';
 
 const Header = () => {
+  const { isLogged } = useContext(AuthContext);
+
   return (
     <div className="header">
       <div className="nav-bar">
@@ -15,7 +18,11 @@ const Header = () => {
               <Link to="/advert/new">New</Link>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+              {!isLogged ? (
+                <Link to="/login">Login</Link>
+              ) : (
+                <Link to="/logout">Logout</Link>
+              )}
             </li>
           </ul>
         </nav>
