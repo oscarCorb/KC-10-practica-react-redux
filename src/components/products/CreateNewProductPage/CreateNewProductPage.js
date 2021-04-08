@@ -11,8 +11,8 @@ const CreateNewProductPage = () => {
 
   const handleSubmit = async (newProductData) => {
     try {
-      await createProduct(newProductData);
-      history.push('/');
+      const response = await createProduct(newProductData);
+      history.push(`/advert/${response.id}`);
       // TODO: (si hay tiempo) mostrar 'producto creado correctamente'
     } catch (error) {
       console.error(error);
