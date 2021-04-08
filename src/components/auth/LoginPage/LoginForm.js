@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import FormButton from '../../shared/FormButton';
 import { FormField } from '../../shared/index';
-import { Button } from '../../shared/index';
 import './LoginForm.css';
 
 const LoginForm = (props) => {
@@ -9,12 +9,25 @@ const LoginForm = (props) => {
     password: '',
   });
 
+  const [formValidation, setFormValidation] = useState(false);
+
   const handleChange = (event) => {
     setCredentials((oldValue) => ({
       ...oldValue,
       [event.target.name]: event.target.value,
     }));
   };
+
+  useEffect(() => {
+    if (
+      credentials.username.length > 0 && //
+      credentials.password.length > 0
+    ) {
+      setFormValidation(true);
+    } else {
+      setFormValidation(false);
+    }
+  });
 
   const handleClickCheckBox = () => {
     props.setRememberMe((oldValue) => !oldValue);
@@ -48,7 +61,12 @@ const LoginForm = (props) => {
         onChange={handleChange}
       />
 
-      <Button cName="is-info" type="button" buttonText="Enviar"></Button>
+      <FormButton
+        cName="is-info"
+        type="button"
+        buttonText="Enviar"
+        formValidation={formValidation}
+      ></FormButton>
 
       <div className="checkbox-container">
         <input

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getTags } from '../../../api/products';
 
 import FormField from '../../shared/FormField';
-import Button from '../../shared/Button';
+import FormButton from '../../shared/FormButton';
 
 const CreateNewProductForm = (props) => {
   const [inputValues, setInputValues] = useState({
@@ -13,9 +13,10 @@ const CreateNewProductForm = (props) => {
     photo: '',
   });
   const [onSaleValue, onSaleInputProps] = useRadioButtons('sale');
+  const [formValidation, setFormValidation] = useState(false);
 
   // TODO: solucionar esto:
-  // ??? creo que estoy manejando los estados dos veces ???
+  // ??? creo que estoy manejando el estado de TAGS dos veces ???
   // hacer la petición de los tags en un componente independiente
   const [tags, setTags] = useState([]);
   useEffect(() => {
@@ -66,6 +67,22 @@ const CreateNewProductForm = (props) => {
       photo: '',
     });
   };
+
+  useEffect(() => {
+    if (
+      inputValues.name.length > 0 &&
+      inputValues.price.length > 0 &&
+      inputValues.tags.length > 0
+    ) {
+      // TODO IMPORTANTE: FALTA COMPROBAR TAMBIÉN 'SALE'
+      // PERO ANTES HAY QUE CAMBIALO DE TIPO RADIO A CHECKBOX
+      setFormValidation(true);
+      console.log('formValidation (name, price, tags)', formValidation);
+    } else {
+      setFormValidation(false);
+      console.log('formValidation', formValidation);
+    }
+  });
 
   return (
     <form className="createNewProductForm" onSubmit={handleSubmit}>
@@ -142,7 +159,12 @@ const CreateNewProductForm = (props) => {
       ></input>
 
       {/* Button */}
-      <Button cName="is-info" buttonText="Enviar" onClick={handleSubmit}></Button>
+      <FormButton
+        cName="is-info"
+        buttonText="Enviar"
+        onClick={handleSubmit}
+        formValidation={formValidation}
+      ></FormButton>
     </form>
   );
 };
