@@ -21,10 +21,9 @@ const ProudctListPage = () => {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    let reverseProductList = [];
     getProductList().then((data) => {
-      data.forEach((item) => reverseProductList.unshift(item));
-      setProductList(reverseProductList);
+      // reverse product list order - new ones first
+      setProductList(data.reverse().map((item) => item));
     });
   }, []);
 
