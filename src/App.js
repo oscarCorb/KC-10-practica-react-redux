@@ -10,12 +10,23 @@ import ProudctDetailPage from './components/products/ProudctDetailPage/ProudctDe
 import ProudctListPage from './components/products/ProudctListPage/ProudctListPage';
 
 import './App.css';
+import LogoutPage from './components/auth/LogoutPage/LogoutPage';
+import { AuthContextProvider } from './components/auth/context';
 
 function App(props) {
   const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
 
+  const handleLogin = () => setIsLogged(true);
+  const handleLogout = () => setIsLogged(false);
+
+  const authValue = {
+    isLogged,
+    onLogout: handleLogout,
+    onLogin: handleLogin,
+  };
+
   return (
-    <Router>
+    <AuthContextProvider value={authValue}>
       <Switch>
         <PrivateRoute exact path="/advert/new" isLogged={isLogged}>
           <CreateNewProductPage />
@@ -39,6 +50,10 @@ function App(props) {
           <LoginPage setIsLogged={setIsLogged} />
         </Route>
 
+        <Route exact path="/logout">
+          <LogoutPage setIsLogged={setIsLogged} />
+        </Route>
+
         <Route path="/404">
           <NotFoundPage />
         </Route>
@@ -47,7 +62,7 @@ function App(props) {
           <Redirect to="/404/" />
         </Route>
       </Switch>
-    </Router>
+    </AuthContextProvider>
   );
 }
 
