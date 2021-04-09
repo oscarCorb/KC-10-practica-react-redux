@@ -1,0 +1,23 @@
+.filter-container {
+  margin: 0 auto;
+  width: 350px;
+}
+.checkbox-container {
+  /* Está cogiendo los estilos de LoginForm.css */
+}
+
+.form-titles {
+}
+
+.filter-price {
+  display: flex;
+  align-items: baseline;
+}
+
+.filter-price input {
+  max-width: 75px;
+}
+
+.filter-price label {
+  padding: 0 7px;
+}

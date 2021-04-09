@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductList } from '../../../api/products';
 import Layout from '../../layout/Layout';
+import ProductFilters from '../ProductFilters/ProductFilters';
 import ProductList from './ProductList';
 import './ProudctListPage.css';
 
@@ -22,7 +23,7 @@ const ProudctListPage = () => {
 
   useEffect(() => {
     getProductList().then((data) => {
-      // reverse product list order - new ones first
+      // order by creation date: new ones first
       setProductList(data.reverse().map((item) => item));
     });
   }, []);
@@ -30,6 +31,7 @@ const ProudctListPage = () => {
   return (
     <div>
       <Layout />
+      <ProductFilters productList={productList} />
       {productList.length ? (
         <ProductList productList={productList} />
       ) : (
