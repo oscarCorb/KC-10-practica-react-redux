@@ -21,3 +21,25 @@
 .filter-price label {
   padding: 0 7px;
 }
+
+.filter-tags-container {
+  border: 1px solid black;
+}
+
+.filter-tags-wrapper {
+  display: flex;
+  align-items: baseline;
+}
+
+.filter-tag {
+  display: flex;
+  align-items: baseline;
+}
+
+.filter-tag input {
+  margin-right: 5px;
+}
+
+.filter-tag label {
+  margin-right: 18px;
+}
