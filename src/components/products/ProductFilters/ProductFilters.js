@@ -79,7 +79,6 @@ const ProductFilters = (props) => {
           />
         </div>
         {/* PRODUCT TYPE: SALE/BUY */}
-        {/* ### HAY QUE CAMBIAR LOS CHECKBOX POR RADIOS: VENTA, COMPRA, TODO ### */}
         <label className="checkbox-container">
           Tipo de anuncios
           <input
@@ -88,7 +87,7 @@ const ProductFilters = (props) => {
             type="radio"
             name="sale"
             value={true}
-            checked={filteredValues.sale === true}
+            checked={filteredValues.sale === 'true'}
             onChange={handleChange}
           />
           <label htmlFor="filter-type-sale">Venta</label>
@@ -98,7 +97,7 @@ const ProductFilters = (props) => {
             type="radio"
             name="sale"
             value={false}
-            checked={filteredValues.sale === false}
+            checked={filteredValues.sale === 'false'}
             onChange={handleChange}
           />
           <label htmlFor="filter-type-buy">Compra</label>
