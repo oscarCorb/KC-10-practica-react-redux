@@ -20,6 +20,10 @@ const EmptyList = () => {
 
 const ProudctListPage = () => {
   const [productList, setProductList] = useState([]);
+  const [filtersOn, setFiltersOn] = useState(false);
+  // let validatedProducts = [];
+  // console.log('## validatedProducts ##', validatedProducts);
+  // console.log('filtersOn', filtersOn);
 
   useEffect(() => {
     getProductList().then((data) => {
@@ -31,8 +35,12 @@ const ProudctListPage = () => {
   return (
     <div>
       <Layout />
-      <ProductFilters productList={productList} />
-      {productList.length ? (
+      <ProductFilters
+        productList={productList}
+        setFiltersOn={setFiltersOn}
+        // validatedProducts={validatedProducts}
+      />
+      {productList.length && !filtersOn ? (
         <ProductList productList={productList} />
       ) : (
         <EmptyList />

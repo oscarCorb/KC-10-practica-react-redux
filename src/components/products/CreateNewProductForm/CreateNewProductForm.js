@@ -10,9 +10,12 @@ const CreateNewProductForm = (props) => {
     name: '',
     price: '',
     tags: [],
+    sale: true,
     photo: '',
   });
-  const [onSaleValue, onSaleInputProps] = useRadioButtons('sale');
+  console.log('inputValues->', inputValues);
+  // TODO INICIALIZARLO EN BOOLEAN, NO EN STRING
+  // const [onSaleValue, onSaleInputProps] = useRadioButtons(true);
   const [formValidation, setFormValidation] = useState(false);
 
   // TODO: solucionar esto:
@@ -28,6 +31,8 @@ const CreateNewProductForm = (props) => {
   }, []);
 
   const handleChange = (event) => {
+    // console.log('event.target.name ---->', event.target.name);
+    // console.log('event.target.value ---->', event.target.value);
     setInputValues((oldValues) => ({
       ...oldValues,
       [event.target.name]: event.target.value,
@@ -56,7 +61,8 @@ const CreateNewProductForm = (props) => {
 
   const handleSubmit = (event) => {
     inputValues.price = inputValues.price * 1;
-    inputValues.sale = !!inputValues.sale;
+    inputValues.sale = inputValues.sale;
+    // console.log('xxx', inputValues.sale);
     event.preventDefault();
     props.onSubmit(inputValues);
     setInputValues({
@@ -73,14 +79,13 @@ const CreateNewProductForm = (props) => {
       inputValues.name.length > 0 &&
       inputValues.price.length > 0 &&
       inputValues.tags.length > 0
+      // inputValues.onSaleValue.length
     ) {
-      // TODO IMPORTANTE: FALTA COMPROBAR TAMBIÉN 'SALE'
-      // PERO ANTES HAY QUE CAMBIALO DE TIPO RADIO A CHECKBOX
       setFormValidation(true);
       console.log('formValidation (name, price, tags)', formValidation);
     } else {
       setFormValidation(false);
-      console.log('formValidation', formValidation);
+      // console.log('formValidation', formValidation);
     }
   });
 
@@ -106,14 +111,16 @@ const CreateNewProductForm = (props) => {
       />
 
       {/* // Sale radio input */}
+      {/* xxx */}
       <label>Tipo de anuncio</label>
       <fieldset>
         <label>
           Venta
           <input
-            name="onSaleProduct"
-            value={true}
-            {...onSaleInputProps}
+            name="sale"
+            value="true"
+            type="radio"
+            // {...onSaleInputProps}
             className="createNewProductForm-radio"
             onChange={handleChange}
             // defaultChecked
@@ -122,9 +129,10 @@ const CreateNewProductForm = (props) => {
         <label>
           Compra
           <input
-            name="onSaleProduct"
-            value={false}
-            {...onSaleInputProps}
+            name="sale"
+            value="false"
+            type="radio"
+            // {...onSaleInputProps}
             className="createNewProductForm-radio"
             onChange={handleChange}
           />
@@ -169,20 +177,20 @@ const CreateNewProductForm = (props) => {
   );
 };
 
-function useRadioButtons(name) {
-  const [value, setState] = useState(null);
+// function useRadioButtons(name) {
+//   const [value, setState] = useState(true);
 
-  const handleChange = (e) => {
-    setState(e.target.value);
-  };
+//   const handleChange = (e) => {
+//     setState(e.target.value);
+//   };
 
-  const inputProps = {
-    name,
-    type: 'radio',
-    onChange: handleChange,
-  };
+//   const inputProps = {
+//     name,
+//     type: 'radio',
+//     onChange: handleChange,
+//   };
 
-  return [value, inputProps];
-}
+//   return [value, inputProps];
+// }
 
 export default CreateNewProductForm;
