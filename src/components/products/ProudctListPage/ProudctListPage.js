@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductList } from '../../../api/products';
 import Layout from '../../layout/Layout';
-import ProductFilters from '../ProductFilters/ProductFilters';
+import ProductFiltersForm from '../ProductFilters/ProductFiltersForm';
 import ProductList from './ProductList';
 import './ProudctListPage.css';
 
@@ -35,7 +35,7 @@ const ProudctListPage = () => {
   return (
     <div>
       <Layout />
-      <ProductFilters
+      <ProductFiltersForm
         productList={productList}
         setFiltersOn={setFiltersOn}
         // validatedProducts={validatedProducts}
