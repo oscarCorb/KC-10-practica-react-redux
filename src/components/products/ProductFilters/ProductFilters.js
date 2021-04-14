@@ -9,7 +9,6 @@ const ProductFilters = (props) => {
     const prices = props.productList.map((product) => product.price);
     return Math.max(...prices);
   };
-  // console.log('maxPrice-->', maxPrice());
 
   const [tagList, setTagList] = useState([]);
   const [filteredValues, setFilteredValues] = useState({
@@ -19,26 +18,12 @@ const ProductFilters = (props) => {
     sale: true,
     tags: [],
   });
-  // console.log('filteredValues.priceTo', filteredValues.priceTo);
 
   const handleSale = (event) => {
-    // console.log('filteredValues.sale', filteredValues.sale);
-    // console.log('filteredValues.value', event.target.value);
-    // console.log('filteredValues.type', event.target.type);
-    // console.log('filteredValues.name', event.target.name);
-    // console.log('filteredValues.event.target.id', event.target.id);
-    // setFilteredValues((s) => ({ ...s, [target.name]: !s[target.name] }));
     setFilteredValues((oldValues) => ({
       ...oldValues,
       [event.target.name]: !oldValues[event.target.name],
     }));
-
-    // if (filteredValues.sale === true) {
-    //   setFilteredValues(false);
-    //   // event.target.value
-    // } else {
-    //   setFilteredValues(true);
-    // }
   };
 
   const handleChange = (event) => {
@@ -55,10 +40,8 @@ const ProductFilters = (props) => {
     if (!filteredValues.tags.includes(event.target.value)) {
       tagsCopy.push(event.target.value);
       resultArr = tagsCopy;
-      // console.log('añadido => resultArray__', resultArr);
     } else {
       resultArr = tagsCopy.filter((tag) => tag !== event.target.value);
-      // console.log('borrado => resultArray__', resultArr);
     }
     setFilteredValues((oldValues) => ({
       ...oldValues,
@@ -76,7 +59,6 @@ const ProductFilters = (props) => {
   // console.log('productList---x-->', props.productList);
   // console.log('filteredValues-->', filteredValues);
   // tener en cuenta el toLowerCase(), es importante
-  // esta me la llevo al padre
   const resultFilteredProducts = [];
 
   const comparison = () => {
@@ -86,16 +68,10 @@ const ProductFilters = (props) => {
           product.price >= filteredValues.priceFrom &&
           product.price <= filteredValues.priceTo
         ) {
-          // lógica de sale
           console.log('->', filteredValues.sale);
-          // console.log('$$', product.sale == filteredValues.sale);
-          // console.log('$!', !product.sale == filteredValues.sale);
           console.log('xx', product);
 
           if (product.sale == filteredValues.sale) {
-            //
-            // if (!product.sale == filteredValues.sale) {
-            //
             if (product.tags.length) {
               for (const tag in product.tags) {
                 if (product.tags.includes(filteredValues.tags[tag])) {
@@ -107,12 +83,10 @@ const ProductFilters = (props) => {
                   }
                 }
               }
-              // }
             }
           }
         }
       }
-      // console.log('filteredProducts___>', resultFilteredProducts);
     });
   };
   comparison();
@@ -226,11 +200,6 @@ const ProductFilters = (props) => {
             })}
           </div>
         </div>
-
-        {/*  */}
-        {/* TEST, VER selección
-        <div>TEST:</div>
-        <p>{inputValues.sale}</p> */}
       </form>
       {resultFilteredProducts && (
         <ProductList productList={resultFilteredProducts} />
@@ -240,48 +209,3 @@ const ProductFilters = (props) => {
 };
 
 export default ProductFilters;
-
-/// copia de Discord
-/*
-const applyFilter = () => {
-  setList(
-    fullList.filter(function (advert) {
-      const checkName = advert.name.toLowerCase().includes(name.toLowerCase());
-
-      let checkPrice;
-      if (min === undefined) {
-        setMin(0);
-      }
-
-      if (max === undefined) {
-        setMax(0);
-      }
-
-      if (parseInt(max) === 0) {
-        checkPrice = advert.price > min;
-      } else {
-        checkPrice = max > advert.price > min;
-      }
-
-      let checkTags;
-      if (tags.length > 0) {
-        checkTags = advert.tags.some((r) => tags.indexOf(r) >= 0);
-      } else {
-        checkTags = true;
-      }
-
-      let checkSale;
-
-      if (sale === 'true') {
-        checkSale = advert.sale === true;
-      } else if (sale === 'false') {
-        checkSale = advert.sale === false;
-      } else {
-        checkSale = true;
-      }
-
-      return checkName && checkPrice && checkTags && checkSale;
-    })
-  );
-};
-*/
