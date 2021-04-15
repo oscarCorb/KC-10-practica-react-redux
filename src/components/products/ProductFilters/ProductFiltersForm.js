@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getTags } from '../../../api/products';
 import RadioGroup from '../../shared/RadioGroup';
 import ProductList from '../ProudctListPage/ProductList';
-import { saleFilter } from './filters';
+import { defaultFilters, saleFilter } from './filters';
 import './ProductFiltersForm.css';
 
 const ProductFiltersForm = (props) => {
@@ -14,29 +14,23 @@ const ProductFiltersForm = (props) => {
   // };
 
   const [tagList, setTagList] = useState([]);
-  const [formValues, setFormValues] = useState({
-    name: '',
-    priceFrom: 0,
-    priceTo: 0,
-    sale: saleFilter.all.value,
-    tags: [],
-  });
+  const [formValues, setFormValues] = useState(defaultFilters);
 
-  const handleSale = (event) => {
-    setFormValues((oldValues) => ({
-      ...oldValues,
-      [event.target.name]: !oldValues[event.target.name],
-    }));
-  };
+  // const handleSale = (event) => {
+  //   setFormValues((oldValues) => ({
+  //     ...oldValues,
+  //     [event.target.name]: !oldValues[event.target.name],
+  //   }));
+  // };
 
   const handleChange = (event) => {
     setFormValues((oldValues) => ({
       ...oldValues,
       [event.target.name]: event.target.value,
     }));
-    console.log('formValues:::', formValues);
-    console.log('event.target.name ->', event.target.name);
-    console.log('event.target.value ->', event.target.value);
+    // console.log('formValues:::', formValues);
+    // console.log('event.target.name ->', event.target.name);
+    // console.log('event.target.value ->', event.target.value);
   };
 
   const handleTags = (event) => {
@@ -55,7 +49,24 @@ const ProductFiltersForm = (props) => {
     // console.log('formValues---', formValues);
   };
 
-  const handleResetClick = () => {};
+  const handleResetClick = (event) => {
+    // console.log('handleResetClick');
+    // console.log('formValues antes->', formValues);
+    event.preventDefault();
+    setFormValues(defaultFilters);
+    // aquí hay que desmarcar los checkboxes *** xxx ***
+    // no tiene que ver con el estado, sino con los propios checkboxes
+
+    // checked={false}
+
+    // console.log('formValues después 1->', formValues);
+  };
+  // console.log('formValues después 2->', formValues);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // aquí hay que hacer submit de los filtros y enviarlos a donde sea o ejecutar la función de los filtros
+  };
 
   useEffect(() => {
     getTags()
@@ -101,7 +112,7 @@ const ProductFiltersForm = (props) => {
   return (
     <div className="filter-container">
       <h2 className="section-title">Filtros</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* NAME SEARCH BOX */}
         <label htmlFor="filter-name">Nombre</label>
         <input
@@ -155,7 +166,8 @@ const ProductFiltersForm = (props) => {
                     type="checkbox"
                     name="tags"
                     value={tag}
-                    checked={formValues.tags[`${tag}`]}
+                    // esto provoca un warning pero me hace falta para desmarcar los checkboxes después del 'reset filters'
+                    checked={formValues.tags.length && formValues.tags[`${tag}`]}
                     onChange={handleTags}
                   />
                   <label htmlFor={`filter-tag-${tag}`}>{tag}</label>
@@ -167,7 +179,7 @@ const ProductFiltersForm = (props) => {
 
         {/* BUTTONS */}
         <button type="submit">Filtrar</button>
-        <button onChange={handleResetClick}>Borrar filtros</button>
+        <button onClick={handleResetClick}>Borrar filtros</button>
       </form>
 
       {/* {resultFilteredProducts && (

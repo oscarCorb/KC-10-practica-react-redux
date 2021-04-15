@@ -6,7 +6,6 @@ const RadioGroup = (props) => {
       {props.options.map((item) => (
         <label key={item.value}>
           <input
-            // name="sale"
             type="radio"
             value={item.value}
             checked={item.value === props.value}
