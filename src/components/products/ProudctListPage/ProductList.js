@@ -1,11 +1,16 @@
 import React from 'react';
+import EmptyList from './EmptyList';
 
 import Product from './Product';
 
 const ProductList = (props) => {
   return (
     <ul className="product-list">
-      <Product {...props} />
+      {props.productList.length ? (
+        <Product {...props} />
+      ) : (
+        <EmptyList productsCount={props.productsCount} />
+      )}
     </ul>
   );
 };

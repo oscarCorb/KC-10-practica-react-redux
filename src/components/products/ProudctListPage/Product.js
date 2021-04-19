@@ -1,15 +1,13 @@
 import React from 'react';
-
-import './Product.css';
 import Button from '../../shared/Button';
 import { Link } from 'react-router-dom';
-import EmptyList from './EmptyList';
+import './Product.css';
 
 const Product = (props) => {
   return (
     <article className="product">
       <div className="product-list-wrapper">
-        {props.productList.length ? (
+        {props.productList.length &&
           props.productList.map((product) => {
             return (
               <li key={product.id}>
@@ -24,10 +22,7 @@ const Product = (props) => {
                 </div>
               </li>
             );
-          })
-        ) : (
-          <EmptyList productsCount={props.productsCount} />
-        )}
+          })}
       </div>
     </article>
   );

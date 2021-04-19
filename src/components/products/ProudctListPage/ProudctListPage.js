@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getProductList } from '../../../api/products';
 import Layout from '../../layout/Layout';
 import { defaultFilters, filterProducts } from '../ProductFilters/filters';
 import ProductFiltersForm from '../ProductFilters/ProductFiltersForm';
-import EmptyList from './EmptyList';
 import ProductList from './ProductList';
 import './ProudctListPage.css';
 
@@ -19,9 +17,6 @@ const ProudctListPage = () => {
     if (formValues !== defaultFilters) {
       setFilteredProducts(filterProducts(productList, formValues));
       setFiltersOn(true);
-    }
-    if (!formValues.name) {
-      setFiltersOn(false);
     }
   };
 
