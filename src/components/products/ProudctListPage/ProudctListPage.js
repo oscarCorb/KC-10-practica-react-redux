@@ -22,10 +22,20 @@ const ProudctListPage = () => {
 
   useEffect(() => {
     getProductList().then((data) => {
-      // order by creation date: new ones first
       setProductList(data.reverse().map((item) => item));
+      // productMaxPrice();
     });
   }, []);
+
+  // function productMaxPrice() {
+  //   const prices = productList.map((product) => product.price);
+  //   const max = Math.max(...prices);
+
+  //   console.log('prices-->', prices);
+  //   console.log('max-->', max);
+
+  //   defaultFilters.priceTo = max;
+  // }
 
   return (
     <div>

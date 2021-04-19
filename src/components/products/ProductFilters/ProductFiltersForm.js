@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import { getTags } from '../../../api/products';
 import RadioGroup from '../../shared/RadioGroup';
-import ProductList from '../ProudctListPage/ProductList';
-import { defaultFilters, filterProducts, saleFilter } from './filters';
+import { defaultFilters, saleFilter } from './filters';
 import './ProductFiltersForm.css';
 
 const ProductFiltersForm = (props) => {
-  // storage maximun product price in productList
-  // esto no funciona bien
-  // const maxPrice = () => {
-  //   const prices = props.productList.map((product) => product.price);
-  //   return Math.max(...prices);
-  // };
-
   const [tagList, setTagList] = useState([]);
 
   const handleChange = (event) => {

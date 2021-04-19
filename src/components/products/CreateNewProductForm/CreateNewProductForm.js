@@ -8,17 +8,14 @@ import FormButton from '../../shared/FormButton';
 const CreateNewProductForm = (props) => {
   const [inputValues, setInputValues] = useState({
     name: '',
-    price: '',
+    price: 0,
     tags: [],
     sale: true,
     photo: '',
   });
-  console.log('inputValues->', inputValues);
-  // TODO INICIALIZARLO EN BOOLEAN, NO EN STRING
-  // const [onSaleValue, onSaleInputProps] = useRadioButtons(true);
   const [formValidation, setFormValidation] = useState(false);
 
-  // TODO: solucionar esto:
+  // TODO solucionar esto:
   // ??? creo que estoy manejando el estado de TAGS dos veces ???
   // hacer la petición de los tags en un componente independiente
   const [tags, setTags] = useState([]);
@@ -31,8 +28,6 @@ const CreateNewProductForm = (props) => {
   }, []);
 
   const handleChange = (event) => {
-    // console.log('event.target.name ---->', event.target.name);
-    // console.log('event.target.value ---->', event.target.value);
     setInputValues((oldValues) => ({
       ...oldValues,
       [event.target.name]: event.target.value,
@@ -61,8 +56,7 @@ const CreateNewProductForm = (props) => {
 
   const handleSubmit = (event) => {
     inputValues.price = inputValues.price * 1;
-    inputValues.sale = inputValues.sale;
-    // console.log('xxx', inputValues.sale);
+    // inputValues.sale = inputValues.sale;
     event.preventDefault();
     props.onSubmit(inputValues);
     setInputValues({
@@ -79,19 +73,16 @@ const CreateNewProductForm = (props) => {
       inputValues.name.length > 0 &&
       inputValues.price.length > 0 &&
       inputValues.tags.length > 0
-      // inputValues.onSaleValue.length
     ) {
       setFormValidation(true);
-      console.log('formValidation (name, price, tags)', formValidation);
     } else {
       setFormValidation(false);
-      // console.log('formValidation', formValidation);
     }
   });
 
   return (
     <form className="createNewProductForm" onSubmit={handleSubmit}>
-      {/* Name/price inputs */}
+      {/* NAME, PRICE */}
       <FormField
         type="text"
         name="name"
@@ -110,8 +101,7 @@ const CreateNewProductForm = (props) => {
         onChange={handleChange}
       />
 
-      {/* // Sale radio input */}
-      {/* xxx */}
+      {/* SALE */}
       <label>Tipo de anuncio</label>
       <fieldset>
         <label>
@@ -120,10 +110,8 @@ const CreateNewProductForm = (props) => {
             name="sale"
             value="true"
             type="radio"
-            // {...onSaleInputProps}
             className="createNewProductForm-radio"
             onChange={handleChange}
-            // defaultChecked
           />
         </label>
         <label>
@@ -132,14 +120,13 @@ const CreateNewProductForm = (props) => {
             name="sale"
             value="false"
             type="radio"
-            // {...onSaleInputProps}
             className="createNewProductForm-radio"
             onChange={handleChange}
           />
         </label>
       </fieldset>
 
-      {/* Tags */}
+      {/* TAGS */}
       <label>
         Categorías
         <fieldset>
@@ -159,14 +146,14 @@ const CreateNewProductForm = (props) => {
         </fieldset>
       </label>
 
-      {/* Image */}
+      {/* IMAGE */}
       <input
         type="file"
         id="uploadFileButton"
         onChange={handleChangeUploadImg}
       ></input>
 
-      {/* Button */}
+      {/* BUTTON */}
       <FormButton
         cName="is-info"
         buttonText="Enviar"
@@ -176,21 +163,5 @@ const CreateNewProductForm = (props) => {
     </form>
   );
 };
-
-// function useRadioButtons(name) {
-//   const [value, setState] = useState(true);
-
-//   const handleChange = (e) => {
-//     setState(e.target.value);
-//   };
-
-//   const inputProps = {
-//     name,
-//     type: 'radio',
-//     onChange: handleChange,
-//   };
-
-//   return [value, inputProps];
-// }
 
 export default CreateNewProductForm;

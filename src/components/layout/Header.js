@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext, { AuthContextConsumer } from '../auth/context';
+import AuthContext from '../auth/context';
 import './Header.css';
 
 const Header = () => {
