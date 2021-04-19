@@ -2,28 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductList } from '../../../api/products';
 import Layout from '../../layout/Layout';
+import { defaultFilters, filterProducts } from '../ProductFilters/filters';
 import ProductFiltersForm from '../ProductFilters/ProductFiltersForm';
+import EmptyList from './EmptyList';
 import ProductList from './ProductList';
 import './ProudctListPage.css';
 
-const EmptyList = () => {
-  return (
-    <div className="empty-list-container">
-      <h1>Ups!</h1>
-      <p>Todavía no hay productos.</p>
-      <Link to="advert/new">
-        <p>¡Crear el primero ahora!</p>
-      </Link>
-    </div>
-  );
-};
-
 const ProudctListPage = () => {
   const [productList, setProductList] = useState([]);
+  const [formValues, setFormValues] = useState(defaultFilters);
+  const [filteredProducts, setFilteredProducts] = useState({});
   const [filtersOn, setFiltersOn] = useState(false);
-  // let validatedProducts = [];
-  // console.log('## validatedProducts ##', validatedProducts);
-  // console.log('filtersOn', filtersOn);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (formValues !== defaultFilters) {
+      setFilteredProducts(filterProducts(productList, formValues));
+      setFiltersOn(true);
+    }
+    if (!formValues.name) {
+      setFiltersOn(false);
+    }
+  };
 
   useEffect(() => {
     getProductList().then((data) => {
@@ -35,16 +35,19 @@ const ProudctListPage = () => {
   return (
     <div>
       <Layout />
-      <ProductFiltersForm
-        productList={productList}
-        setFiltersOn={setFiltersOn}
-        // validatedProducts={validatedProducts}
-      />
-      {productList.length && !filtersOn ? (
-        <ProductList productList={productList} />
-      ) : (
-        <EmptyList />
+      {productList.length > 0 && (
+        <ProductFiltersForm
+          onSubmit={handleSubmit}
+          productList={productList}
+          setFormValues={setFormValues}
+          formValues={formValues}
+          setFiltersOn={setFiltersOn}
+        />
       )}
+      <ProductList
+        productList={!filtersOn ? productList : filteredProducts}
+        productsCount={productList.length}
+      />
     </div>
   );
 };
