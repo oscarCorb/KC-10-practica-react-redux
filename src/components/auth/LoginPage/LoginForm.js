@@ -29,8 +29,8 @@ const LoginForm = (props) => {
     }
   });
 
-  const handleClickCheckBox = () => {
-    props.setRememberMe((oldValue) => !oldValue);
+  const handleClickCheckBox = (e) => {
+    props.setRememberMe(!props.rememberMe);
   };
 
   const handleSubmit = (event) => {
@@ -72,8 +72,8 @@ const LoginForm = (props) => {
         <input
           id="input-checkbox"
           type="checkbox"
-          value={props.rememberMe}
-          onClick={handleClickCheckBox}
+          checked={props.rememberMe}
+          onChange={handleClickCheckBox}
         />
         <label htmlFor="input-checkbox">Recordar</label>
       </div>
