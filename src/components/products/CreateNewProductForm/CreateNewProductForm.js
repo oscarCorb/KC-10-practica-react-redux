@@ -28,9 +28,17 @@ const CreateNewProductForm = (props) => {
   }, []);
 
   const handleChange = (event) => {
+    let value = event.target.value;
+
+    if (value === 'true') {
+      value = true;
+    } else if (value === 'false') {
+      value = false;
+    }
+
     setInputValues((oldValues) => ({
       ...oldValues,
-      [event.target.name]: event.target.value,
+      [event.target.name]: value,
     }));
   };
 
@@ -67,6 +75,7 @@ const CreateNewProductForm = (props) => {
       photo: '',
     });
   };
+  console.log(inputValues.sale);
 
   useEffect(() => {
     if (
@@ -107,9 +116,10 @@ const CreateNewProductForm = (props) => {
         <label>
           Venta
           <input
-            name="sale"
-            value="true"
             type="radio"
+            name="sale"
+            value={true}
+            checked={inputValues.sale === true}
             className="createNewProductForm-radio"
             onChange={handleChange}
           />
@@ -117,9 +127,10 @@ const CreateNewProductForm = (props) => {
         <label>
           Compra
           <input
-            name="sale"
-            value="false"
             type="radio"
+            name="sale"
+            value={false}
+            checked={inputValues.sale === false}
             className="createNewProductForm-radio"
             onChange={handleChange}
           />
