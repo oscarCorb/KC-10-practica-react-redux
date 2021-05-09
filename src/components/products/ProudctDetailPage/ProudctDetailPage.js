@@ -29,7 +29,7 @@ const ProudctDetailPage = (props) => {
       .catch((error) => {
         console.error(error);
         if (error.status === 404) {
-          return history.push('/');
+          return history.push('/404');
         }
       });
   }, []);
