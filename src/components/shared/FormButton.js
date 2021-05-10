@@ -5,7 +5,7 @@ const FormButton = (props) => {
     <button
       className={`button ${props.cName}`}
       onClick={props.handleClick}
-      disabled={!props.formValidation}
+      disabled={!props.formValidation()}
     >
       {props.buttonText}
     </button>

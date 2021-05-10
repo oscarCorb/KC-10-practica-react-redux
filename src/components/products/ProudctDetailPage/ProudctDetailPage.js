@@ -27,7 +27,6 @@ const ProudctDetailPage = (props) => {
     getProduct(productId)
       .then((product) => setProduct(product))
       .catch((error) => {
-        console.error(error);
         if (error.status === 404) {
           return history.push('/404');
         }

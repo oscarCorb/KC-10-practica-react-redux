@@ -9,8 +9,6 @@ const LoginForm = (props) => {
     password: '',
   });
 
-  const [formValidation, setFormValidation] = useState(false);
-
   const handleChange = (event) => {
     setCredentials((oldValue) => ({
       ...oldValue,
@@ -18,16 +16,16 @@ const LoginForm = (props) => {
     }));
   };
 
-  useEffect(() => {
+  const formValidation = () => {
     if (
       credentials.username.length > 0 && //
       credentials.password.length > 0
     ) {
-      setFormValidation(true);
+      return true;
     } else {
-      setFormValidation(false);
+      return false;
     }
-  });
+  };
 
   const handleClickCheckBox = (e) => {
     props.setRememberMe(!props.rememberMe);

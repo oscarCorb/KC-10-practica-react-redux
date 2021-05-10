@@ -13,7 +13,6 @@ const CreateNewProductForm = (props) => {
     sale: true,
     photo: '',
   });
-  const [formValidation, setFormValidation] = useState(false);
 
   // TODO solucionar esto:
   // ??? creo que estoy manejando el estado de TAGS dos veces ???
@@ -75,19 +74,18 @@ const CreateNewProductForm = (props) => {
       photo: '',
     });
   };
-  console.log(inputValues.sale);
 
-  useEffect(() => {
+  const formValidation = () => {
     if (
       inputValues.name.length > 0 &&
       inputValues.price.length > 0 &&
       inputValues.tags.length > 0
     ) {
-      setFormValidation(true);
+      return true;
     } else {
-      setFormValidation(false);
+      return false;
     }
-  });
+  };
 
   return (
     <form className="createNewProductForm" onSubmit={handleSubmit}>
