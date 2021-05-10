@@ -1,25 +1,23 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { deleteProduct } from '../../api/products';
+
 import Button from './Button';
 import './Modal.css';
 
 const Modal = (props) => {
-  const history = useHistory();
-
-  const handleClickYes = async () => {
-    await deleteProduct(props.productId);
-    history.push('/');
+  const handleClickYes = () => {
+    props.onDisplayModal(true);
+    props.onConfirm(true);
   };
 
   const handleClickNo = () => {
-    props.setDisplayModal((oldValue) => !oldValue);
+    props.onDisplayModal(false);
+    props.onConfirm(false);
   };
 
   return (
     <>
       <div className="modal-buttons-container">
-        <p>¿Estás seguro?</p>
+        <p>{props.questionText}</p>
         <Button
           cName="is-warning is-light is-outlined confirm-delete"
           handleClick={handleClickYes}
