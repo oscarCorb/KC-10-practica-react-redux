@@ -46,7 +46,7 @@ const ProductFiltersForm = (props) => {
 
   return (
     <div className="filter-container">
-      <h2 className="section-title">Filtros</h2>
+      <h2 className="section-title title">Filtros</h2>
       <form onSubmit={props.onSubmit}>
         {/* NAME SEARCH BOX */}
         <label htmlFor="filter-name">Nombre</label>
@@ -115,8 +115,18 @@ const ProductFiltersForm = (props) => {
         </div>
 
         {/* BUTTONS */}
-        <button type="submit">Filtrar</button>
-        <button onClick={handleResetClick}>Borrar filtros</button>
+        <button //
+          type="submit"
+          className="button is-info is-light is-outlined filters-buttons"
+        >
+          Filtrar
+        </button>
+        <button //
+          onClick={handleResetClick}
+          className="button is-info is-light is-outlined filters-buttons"
+        >
+          Borrar filtros
+        </button>
       </form>
     </div>
   );

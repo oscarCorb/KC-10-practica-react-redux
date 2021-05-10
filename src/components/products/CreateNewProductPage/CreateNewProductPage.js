@@ -6,6 +6,8 @@ import { createProduct } from '../../../api/products';
 import Layout from '../../layout/Layout';
 import { useHistory } from 'react-router';
 
+import './CreateNewProductPage.css';
+
 const CreateNewProductPage = () => {
   const history = useHistory();
 
@@ -23,8 +25,10 @@ const CreateNewProductPage = () => {
   return (
     <div>
       <Layout />
-      <h2>Create new product</h2>
-      <CreateNewProductForm onSubmit={handleSubmit} />
+      <div className="new-product-page">
+        <h2 className="section-title title">Crear producto</h2>
+        <CreateNewProductForm onSubmit={handleSubmit} />
+      </div>
     </div>
   );
 };

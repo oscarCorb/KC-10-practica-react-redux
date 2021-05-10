@@ -59,13 +59,6 @@ const LoginForm = (props) => {
         onChange={handleChange}
       />
 
-      <FormButton
-        cName="is-info"
-        type="button"
-        buttonText="Enviar"
-        formValidation={formValidation}
-      ></FormButton>
-
       <div className="checkbox-container">
         <input
           id="input-checkbox"
@@ -75,6 +68,13 @@ const LoginForm = (props) => {
         />
         <label htmlFor="input-checkbox">Recordar</label>
       </div>
+
+      <FormButton
+        cName="is-info"
+        type="button"
+        buttonText="Enviar"
+        formValidation={formValidation}
+      ></FormButton>
     </form>
   );
 };

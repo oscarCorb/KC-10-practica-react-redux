@@ -4,6 +4,8 @@ import { login } from '../../../api/auth';
 import Layout from '../../layout/Layout';
 import { useHistory } from 'react-router';
 
+import './LoginPage.css';
+
 const LoginPage = (props) => {
   const [rememberMe, setRememberMe] = useState(false);
   const history = useHistory();
@@ -22,12 +24,14 @@ const LoginPage = (props) => {
   return (
     <div>
       <Layout />
-      <h2>Login</h2>
-      <LoginForm
-        onSubmit={handleSubmit}
-        setRememberMe={setRememberMe}
-        rememberMe={rememberMe}
-      />
+      <div className="login-page-container">
+        <h2 className="section-title title">Entrar</h2>
+        <LoginForm
+          onSubmit={handleSubmit}
+          setRememberMe={setRememberMe}
+          rememberMe={rememberMe}
+        />
+      </div>
     </div>
   );
 };

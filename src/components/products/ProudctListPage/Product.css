@@ -6,10 +6,15 @@ li {
   display: block;
 }
 
+/* .section-title {
+  text-align: center;
+} */
+
 article {
   /* creo que esto del ancho debería estar en ProducList, no en Product */
   max-width: 350px;
   margin: 0 auto;
+  margin-top: 15px;
 }
 
 .product-list-wrapper {

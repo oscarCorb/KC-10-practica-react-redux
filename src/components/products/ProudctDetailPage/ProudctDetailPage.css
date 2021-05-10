@@ -5,9 +5,10 @@ img {
 
 .product-detail-container {
   background-color: rgb(249, 244, 244);
-
   padding: 20px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  width: 350px;
+  margin: 0 auto;
 }
 
 .product-detail-title,
@@ -17,8 +18,7 @@ img {
 
 .product-detail-wrapper {
   margin: 0 auto;
-  width: 350px;
-  /* border: 1px red solid; */
+  width: 300px;
 }
 
 .product-detail-price {

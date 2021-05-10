@@ -9,6 +9,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="nav-bar">
+        <h1 className="title">Nodepop React</h1>
         <nav>
           <ul>
             <li>
@@ -27,7 +28,6 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-      <h1>Nodepop React</h1>
     </div>
   );
 };

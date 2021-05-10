@@ -7,6 +7,7 @@ const Product = (props) => {
   return (
     <article className="product">
       <div className="product-list-wrapper">
+        <p className="section-title title">Productos</p>
         {props.productList.length &&
           props.productList.map((product) => {
             return (

@@ -1,6 +1,8 @@
 .filter-container {
   margin: 0 auto;
   width: 350px;
+  background-color: #e1e1e1;
+  padding: 15px;
 }
 .checkbox-container {
   /* Está cogiendo los estilos de LoginForm.css */
@@ -23,7 +25,7 @@
 }
 
 .filter-tags-container {
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .filter-tags-wrapper {
@@ -42,4 +44,8 @@
 
 .filter-tag label {
   margin-right: 18px;
+}
+
+.filters-buttons {
+  margin-right: 10px;
 }
