@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Route, BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
+import {
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 
 import { PrivateRoute } from './components/auth';
 
@@ -11,58 +16,54 @@ import ProudctListPage from './components/products/ProudctListPage/ProudctListPa
 
 import './App.css';
 import LogoutPage from './components/auth/LogoutPage/LogoutPage';
-import { AuthContextProvider } from './components/auth/context';
 
-function App(props) {
-  const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
+function App() {
+  // const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
 
-  const handleLogin = () => setIsLogged(true);
-  const handleLogout = () => setIsLogged(false);
+  // const handleLogin = () => {};
+  // const handleLogout = () => {};
 
-  const authValue = {
-    isLogged,
-    onLogout: handleLogout,
-    onLogin: handleLogin,
-  };
+  // const authValue = {
+  //   isLogged: false,
+  //   onLogout: handleLogout,
+  //   onLogin: handleLogin,
+  // };
 
   return (
-    <AuthContextProvider value={authValue}>
-      <Switch>
-        <PrivateRoute exact path="/advert/new" isLogged={isLogged}>
-          <CreateNewProductPage />
-        </PrivateRoute>
+    <Switch>
+      <PrivateRoute exact path="/advert/new">
+        <CreateNewProductPage />
+      </PrivateRoute>
 
-        <PrivateRoute
-          path="/advert/:id"
-          isLogged={isLogged}
-          component={ProudctDetailPage}
-        ></PrivateRoute>
+      <PrivateRoute
+        path="/advert/:id"
+        component={ProudctDetailPage}
+      ></PrivateRoute>
 
-        <PrivateRoute exact path="/adverts" isLogged={isLogged}>
-          <ProudctListPage />
-        </PrivateRoute>
+      <PrivateRoute exact path="/adverts">
+        <ProudctListPage />
+      </PrivateRoute>
 
-        <Route exact path="/">
-          <Redirect to="/adverts" />
-        </Route>
+      <Route exact path="/">
+        <Redirect to="/adverts" />
+      </Route>
 
-        <Route exact path="/login">
-          <LoginPage setIsLogged={setIsLogged} />
-        </Route>
+      <Route exact path="/login">
+        <LoginPage />
+      </Route>
 
-        <Route exact path="/logout">
-          <LogoutPage setIsLogged={setIsLogged} />
-        </Route>
+      <Route exact path="/logout">
+        <LogoutPage />
+      </Route>
 
-        <Route path="/404">
-          <NotFoundPage />
-        </Route>
+      <Route path="/404">
+        <NotFoundPage />
+      </Route>
 
-        <Route>
-          <Redirect to="/404/" />
-        </Route>
-      </Switch>
-    </AuthContextProvider>
+      <Route>
+        <Redirect to="/404/" />
+      </Route>
+    </Switch>
   );
 }
 

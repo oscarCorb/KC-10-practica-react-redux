@@ -1,13 +1,15 @@
-import { createContext, useContext } from 'react';
+// ESTE YA LO PODEMOS BORRAR
 
-const AuthContext = createContext();
+// import { createContext, useContext } from 'react';
 
-export const AuthContextProvider = AuthContext.Provider;
-export const AuthContextConsumer = AuthContext.Consumer;
+// const AuthContext = createContext();
 
-export const useAuthContext = () => {
-  const value = useContext(AuthContext);
-  return value;
-};
+// export const AuthContextProvider = AuthContext.Provider;
+// export const AuthContextConsumer = AuthContext.Consumer;
 
-export default AuthContext;
+// export const useAuthContext = () => {
+//   const value = useContext(AuthContext);
+//   return value;
+// };
+
+// export default AuthContext;

@@ -5,15 +5,17 @@ import Layout from '../../layout/Layout';
 import { useHistory } from 'react-router';
 
 import './LoginPage.css';
+import { connect } from 'react-redux';
+import { authLoginRequest, authLoginSuccess } from '../../../store/actions';
 
-const LoginPage = (props) => {
+const LoginPage = ({ onLogin }) => {
   const [rememberMe, setRememberMe] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (credentials) => {
     try {
       await login(credentials, rememberMe);
-      props.setIsLogged(true);
+      onLogin();
       history.push('/');
     } catch (error) {
       console.error(error);
@@ -36,4 +38,8 @@ const LoginPage = (props) => {
   );
 };
 
-export default LoginPage;
+const mapDispatchToProps = (dispatch) => ({
+  onLogin: () => dispatch(authLoginSuccess()),
+});
+
+export default connect(null, mapDispatchToProps)(LoginPage);

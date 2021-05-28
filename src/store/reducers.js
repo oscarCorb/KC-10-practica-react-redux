@@ -16,7 +16,7 @@ export function auth(state = initialState.auth, action) {
     case AUTH_LOGIN_SUCCESS:
       return { ...state, auth: true };
     case AUTH_LOGOUT:
-      return { ...state, auth: true };
+      return { ...state, auth: false };
     default:
       return state;
   }

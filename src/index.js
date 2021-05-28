@@ -8,6 +8,7 @@ import './index.css';
 import storage from './utils/storage';
 import { configureClient } from './api/client';
 import configureStore from './store';
+import { Provider } from 'react-redux';
 // import { Router } from 'react-router';
 
 const accessToken = storage.get('auth');
@@ -19,10 +20,10 @@ const store = configureStore({
 // console.log('store.getState() ->', store.getState());
 
 ReactDOM.render(
-  <Router>
-    {/* <React.StrictMode> */}
-    <App isInitiallyLogged={!!accessToken} />
-    {/* </React.StrictMode> */}
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );

@@ -29,3 +29,9 @@ export const authLoginFailure = (error) => {
 //     //
 //   };
 // };
+
+export const authLogout = () => {
+  return {
+    type: AUTH_LOGOUT,
+  };
+};

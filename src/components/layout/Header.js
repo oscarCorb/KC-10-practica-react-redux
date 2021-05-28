@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import AuthContext from '../auth/context';
+import { getIsLogged } from '../../store/selectors';
 import './Header.css';
 
-const Header = () => {
-  const { isLogged } = useContext(AuthContext);
-
+const Header = ({ isLogged, ...props }) => {
   return (
     <div className="header">
       <div className="nav-bar">
@@ -32,4 +31,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({ isLogged: getIsLogged(state) });
+
+export default connect(mapStateToProps)(Header);
