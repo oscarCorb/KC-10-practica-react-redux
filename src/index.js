@@ -16,8 +16,7 @@ configureClient({ accessToken });
 const store = configureStore({
   preloadedState: { auth: !!accessToken },
 });
-console.log('$1 ->', store);
-console.log('$2 ->', store.getState());
+// console.log('store.getState() ->', store.getState());
 
 ReactDOM.render(
   <Router>
