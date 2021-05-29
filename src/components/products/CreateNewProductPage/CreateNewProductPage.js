@@ -15,10 +15,10 @@ const CreateNewProductPage = () => {
     try {
       const { id } = await createProduct(newProductData);
       history.push(`/advert/${id}`);
-      // TODO: (si hay tiempo) mostrar 'producto creado correctamente'
+      // TODO: Mostrar mensaje: 'producto creado correctamente'
     } catch (error) {
       console.error(error);
-      // TODO: Mostrar error al usuario, ahora no queda claro
+      // TODO: Mostrar error al usuario para mejorar ux
     }
   };
 

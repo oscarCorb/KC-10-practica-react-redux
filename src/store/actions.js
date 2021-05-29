@@ -44,3 +44,10 @@ export const productsLoaded = (products) => {
     payload: products,
   };
 };
+
+export const productsCreated = (products) => {
+  return {
+    type: PRODUCT_CREATED,
+    payload: products,
+  };
+};

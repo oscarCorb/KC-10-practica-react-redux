@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from '../../../api/products';
+
+import { getProducts } from '../../../store/selectors';
+import { productsLoaded } from '../../../store/actions';
+
 import Layout from '../../layout/Layout';
 import { defaultFilters, filterProducts } from '../ProductFilters/filters';
 import ProductFiltersForm from '../ProductFilters/ProductFiltersForm';
@@ -7,10 +12,13 @@ import ProductList from './ProductList';
 import './ProudctListPage.css';
 
 const ProudctListPage = () => {
-  const [productList, setProductList] = useState([]);
+  // const [productList, setProductList] = useState([]);
   const [formValues, setFormValues] = useState(defaultFilters);
   const [filteredProducts, setFilteredProducts] = useState({});
   const [filtersOn, setFiltersOn] = useState(false);
+
+  const dispatch = useDispatch();
+  const productList = useSelector(getProducts);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,20 +30,10 @@ const ProudctListPage = () => {
 
   useEffect(() => {
     getProductList().then((data) => {
-      setProductList(data.reverse().map((item) => item));
-      // productMaxPrice();
+      // setProductList(data.reverse().map((item) => item));
+      dispatch(productsLoaded(data));
     });
   }, []);
-
-  // function productMaxPrice() {
-  //   const prices = productList.map((product) => product.price);
-  //   const max = Math.max(...prices);
-
-  //   console.log('prices-->', prices);
-  //   console.log('max-->', max);
-
-  //   defaultFilters.priceTo = max;
-  // }
 
   return (
     <div>

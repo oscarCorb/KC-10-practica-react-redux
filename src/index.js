@@ -9,21 +9,23 @@ import storage from './utils/storage';
 import { configureClient } from './api/client';
 import configureStore from './store';
 import { Provider } from 'react-redux';
-// import { Router } from 'react-router';
 
 const accessToken = storage.get('auth');
 configureClient({ accessToken });
 
 const store = configureStore({
-  preloadedState: { auth: !!accessToken },
+  preloadedState: { auth: !!accessToken, products: [] },
 });
-// console.log('store.getState() ->', store.getState());
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById('root')
-);
+const render = () => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>,
+    document.getElementById('root')
+  );
+};
+
+render();
