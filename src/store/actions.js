@@ -3,6 +3,8 @@ import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
   AUTH_LOGOUT,
+  PRODUCTS_LOADED,
+  PRODUCT_CREATED,
 } from './types';
 
 export const authLoginRequest = () => {
@@ -33,5 +35,12 @@ export const authLoginFailure = (error) => {
 export const authLogout = () => {
   return {
     type: AUTH_LOGOUT,
+  };
+};
+
+export const productsLoaded = (products) => {
+  return {
+    type: PRODUCTS_LOADED,
+    payload: products,
   };
 };
