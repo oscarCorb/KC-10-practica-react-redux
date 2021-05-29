@@ -1,4 +1,4 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 // import { auth } from './reducers';
 
@@ -13,6 +13,7 @@ const configureStore = ({ preloadedState /* , history */ }) => {
     preloadedState,
     composeWithDevTools()
   );
+  console.log('store', store.getState());
   return store;
 };
 

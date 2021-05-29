@@ -3,16 +3,35 @@ import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
   AUTH_LOGOUT,
-  PRODUCTS_LOADED,
-  PRODUCT_CREATED,
+  TAGS_LOADED_REQUEST,
+  TAGS_LOADED_SUCCESS,
+  TAGS_LOADED_FAILURE,
+  PRODUCT_CREATED_REQUEST,
+  PRODUCT_CREATED_SUCCESS,
+  PRODUCT_CREATED_FAILURE,
+  PRODUCT_DETAIL_REQUEST,
+  PRODUCT_DETAIL_SUCCESS,
+  PRODUCT_DETAIL_FAILURE,
+  PRODUCT_DELETED_REQUEST,
+  PRODUCT_DELETED_SUCCESS,
+  PRODUCT_DELETED_FAILURE,
+  PRODUCTS_LOADED_REQUEST,
+  PRODUCTS_LOADED_SUCCESS,
+  PRODUCTS_LOADED_FAILURE,
+  UI_RESET_ERROR,
 } from './types';
 
+// AUTH LOGIN
 export const authLoginRequest = () => {
-  return { type: AUTH_LOGIN_REQUEST };
+  return {
+    type: AUTH_LOGIN_REQUEST,
+  };
 };
 
 export const authLoginSuccess = () => {
-  return { type: AUTH_LOGIN_SUCCESS };
+  return {
+    type: AUTH_LOGIN_SUCCESS,
+  };
 };
 
 export const authLoginFailure = (error) => {
@@ -26,6 +45,7 @@ export const authLoginFailure = (error) => {
 // pasar aquí la lógica del componente del login
 // antes creo que hay que hacer el middleware Thunk
 
+// middleware
 // export const loginAction = (credentials) => {
 //   return async function (dispatch, getState, { api, history }) {
 //     //
@@ -38,16 +58,50 @@ export const authLogout = () => {
   };
 };
 
+// TAGS LOADED
+export const tagsLoadedRequest = (tags) => {
+  return {
+    type: TAGS_LOADED_REQUEST,
+    payload: tags,
+  };
+};
+
+export const tagsLoadedSuccess = (tags) => {
+  return {
+    type: TAGS_LOADED_SUCCESS,
+    payload: tags,
+  };
+};
+
+export const tagsLoadedFailure = (error) => {
+  return {
+    type: TAGS_LOADED_FAILURE,
+    payload: error,
+    error: true,
+  };
+};
+
+// middleware
+// export function tagsLoadAction() {}
+
+// PRODUCTS LOADED
 export const productsLoaded = (products) => {
   return {
-    type: PRODUCTS_LOADED,
+    type: PRODUCTS_LOADED_SUCCESS,
     payload: products,
   };
 };
 
 export const productsCreated = (products) => {
   return {
-    type: PRODUCT_CREATED,
+    type: PRODUCT_CREATED_SUCCESS,
     payload: products,
+  };
+};
+
+// UI RESET ERROR
+export const resetError = () => {
+  return {
+    type: UI_RESET_ERROR,
   };
 };

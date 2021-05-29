@@ -5,7 +5,13 @@ import { getTags } from '../../../api/products';
 import FormField from '../../shared/FormField';
 import FormButton from '../../shared/FormButton';
 
-const CreateNewProductForm = (props) => {
+import { getTagList } from '../../../store/selectors';
+import { connect } from 'react-redux';
+import { tagsLoadedRequest } from '../../../store/actions';
+
+const CreateNewProductForm = ({ onSubmit, tags, setTags }) => {
+  console.log('tags', tags);
+
   const [inputValues, setInputValues] = useState({
     name: '',
     price: 0,
@@ -14,10 +20,6 @@ const CreateNewProductForm = (props) => {
     photo: '',
   });
 
-  // TODO solucionar esto:
-  // ??? creo que estoy manejando el estado de TAGS dos veces ???
-  // hacer la petición de los tags en un componente independiente
-  const [tags, setTags] = useState([]);
   useEffect(() => {
     const getTagList = async () => {
       const tags = await getTags();
@@ -65,7 +67,7 @@ const CreateNewProductForm = (props) => {
     inputValues.price = inputValues.price * 1;
     // inputValues.sale = inputValues.sale;
     event.preventDefault();
-    props.onSubmit(inputValues);
+    onSubmit(inputValues);
     setInputValues({
       name: '',
       price: '',
@@ -173,4 +175,19 @@ const CreateNewProductForm = (props) => {
   );
 };
 
-export default CreateNewProductForm;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    tags: getTagList(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setTags: (tags) => dispatch(tagsLoadedRequest(tags)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateNewProductForm);
