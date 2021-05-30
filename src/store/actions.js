@@ -109,11 +109,27 @@ export const productDetailSuccess = (product) => {
   };
 };
 
-export const productDetailFailure = (product) => {
+export const productDetailFailure = (error) => {
   return {
     type: PRODUCT_DETAIL_FAILURE,
-    payload: product,
+    payload: error,
     error: true,
+  };
+};
+
+// PRODUCT DETAIL middleware
+export const productDetailAction = (productId) => {
+  return async function (dispatch, getState, { api, history }) {
+    dispatch(productDetailRequest(productId));
+    try {
+      const productDetail = await api.products.getProduct(productId);
+      dispatch(productDetailSuccess(productDetail));
+    } catch (error) {
+      dispatch(productDetailFailure(error));
+      if (error.status === 404) {
+        return history.push('/404');
+      }
+    }
   };
 };
 
@@ -188,19 +204,6 @@ export const productsLoadedAction = (productList) => {
     }
   };
 };
-
-// // TAGS middleware
-// export const tagsAction = (tags) => {
-//   return async function (dispatch, getState, { api, history }) {
-//     dispatch(tagsLoadedRequest(tags));
-//     try {
-//       const tags = await api.products.getTags();
-//       dispatch(tagsLoadedSuccess(tags));
-//     } catch (error) {
-//       dispatch(tagsLoadedFailure(error));
-//     }
-//   };
-// };
 
 // UI RESET ERROR
 export const resetError = () => {

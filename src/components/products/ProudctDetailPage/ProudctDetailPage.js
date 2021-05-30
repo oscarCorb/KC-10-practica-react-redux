@@ -3,21 +3,24 @@ import Layout from '../../layout/Layout';
 import Modal from '../../shared/Modal';
 import Button from '../../shared/Button';
 
-import { deleteProduct, getProduct } from '../../../api/products';
+import { deleteProduct } from '../../../api/products';
 
 import placeholderImg from '../../../assets/image_placeholder.png';
 import { useHistory } from 'react-router';
 import './ProudctDetailPage.css';
-import { connect } from 'react-redux';
-import { productDetailRequest } from '../../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { productDetailAction } from '../../../store/actions';
 import { getProductDetail } from '../../../store/selectors';
 
-const ProudctDetailPage = ({ match, setProduct, product }) => {
+const ProudctDetailPage = ({ match }) => {
   const history = useHistory();
   const productId = match.params.id;
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const [displayModal, setDisplayModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const product = useSelector(getProductDetail);
 
   const handleClickModal = () => {
     setDisplayModal(!displayModal);
@@ -31,13 +34,7 @@ const ProudctDetailPage = ({ match, setProduct, product }) => {
   };
 
   useEffect(() => {
-    getProduct(productId)
-      .then((product) => setProduct(product))
-      .catch((error) => {
-        if (error.status === 404) {
-          return history.push('/404');
-        }
-      });
+    dispatch(productDetailAction(productId));
   }, []);
 
   return (
@@ -85,16 +82,4 @@ const ProudctDetailPage = ({ match, setProduct, product }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    product: getProductDetail(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    setProduct: (product) => dispatch(productDetailRequest(product)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProudctDetailPage);
+export default ProudctDetailPage;
