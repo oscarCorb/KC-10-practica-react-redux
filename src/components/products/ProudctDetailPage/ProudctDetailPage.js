@@ -8,14 +8,13 @@ import { deleteProduct, getProduct } from '../../../api/products';
 import placeholderImg from '../../../assets/image_placeholder.png';
 import { useHistory } from 'react-router';
 import './ProudctDetailPage.css';
+import { connect } from 'react-redux';
+import { productDetailRequest } from '../../../store/actions';
+import { getProductDetail } from '../../../store/selectors';
 
-const ProudctDetailPage = (props) => {
-  // NOTA: es mejor inicializar product a null. Y para que funcione bien,
-  // hay que poner una condición para que en el primer render, cuando
-  // product todavía es null, no renderice nada
-  const [product, setProduct] = useState(null);
+const ProudctDetailPage = ({ match, setProduct, product }) => {
   const history = useHistory();
-  const productId = props.match.params.id;
+  const productId = match.params.id;
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   const [displayModal, setDisplayModal] = useState(false);
@@ -49,7 +48,9 @@ const ProudctDetailPage = (props) => {
           <div className="product-detail-wrapper">
             <h2 className="product-detail-title title">{product.name}</h2>
             <img
-              src={product.photo ? `${baseUrl}${product.photo}` : placeholderImg}
+              src={
+                product.photo ? `${baseUrl}${product.photo}` : placeholderImg
+              }
               alt={product.name}
             />
             <div className="product-details">
@@ -84,4 +85,16 @@ const ProudctDetailPage = (props) => {
   );
 };
 
-export default ProudctDetailPage;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    product: getProductDetail(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setProduct: (product) => dispatch(productDetailRequest(product)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProudctDetailPage);

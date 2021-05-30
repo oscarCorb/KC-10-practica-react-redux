@@ -58,7 +58,58 @@ export const authLogout = () => {
   };
 };
 
-// TAGS LOADED
+// PRODUCTS CREATION ======== ****** ======== *******
+// PRODUCTS CREATION ======== ****** ======== *******
+// PRODUCTS CREATION ======== ****** ======== *******
+export const productsCreated = (products) => {
+  return {
+    type: PRODUCT_CREATED_SUCCESS,
+    payload: products,
+  };
+};
+
+export const productsCreatedSuccess = (product) => {
+  return {
+    type: PRODUCT_CREATED_SUCCESS,
+    payload: product,
+  };
+};
+
+export const productsCreatedFailure = (product) => {
+  return {
+    type: PRODUCT_CREATED_FAILURE,
+    payload: product,
+    error: true,
+  };
+};
+// PRODUCTS CREATION ======== ****** ======== *******
+// PRODUCTS CREATION ======== ****** ======== *******
+// PRODUCTS CREATION ======== ****** ======== *******
+
+// PRODUCT DETAIL
+export const productDetailRequest = (product) => {
+  return {
+    type: PRODUCT_DETAIL_REQUEST,
+    payload: product,
+  };
+};
+
+export const productDetailSuccess = (product) => {
+  return {
+    type: PRODUCT_DETAIL_SUCCESS,
+    payload: product,
+  };
+};
+
+export const productDetailFailure = (product) => {
+  return {
+    type: PRODUCT_DETAIL_FAILURE,
+    payload: product,
+    error: true,
+  };
+};
+
+// TAGS LOADING
 export const tagsLoadedRequest = (tags) => {
   return {
     type: TAGS_LOADED_REQUEST,
@@ -81,20 +132,10 @@ export const tagsLoadedFailure = (error) => {
   };
 };
 
-// middleware
-// export function tagsLoadAction() {}
-
-// PRODUCTS LOADED
+// PRODUCTS LOADING
 export const productsLoaded = (products) => {
   return {
     type: PRODUCTS_LOADED_SUCCESS,
-    payload: products,
-  };
-};
-
-export const productsCreated = (products) => {
-  return {
-    type: PRODUCT_CREATED_SUCCESS,
     payload: products,
   };
 };

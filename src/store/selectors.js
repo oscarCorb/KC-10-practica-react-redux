@@ -4,3 +4,5 @@ export const getIsLogged = (state) => state.auth;
 export const getProducts = (state) => state.products.reverse();
 
 export const getTagList = (state) => state.tags;
+
+export const getProductDetail = (state) => state.productDetail;

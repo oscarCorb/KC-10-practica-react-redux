@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import { tagsLoadedRequest } from '../../../store/actions';
 
 const CreateNewProductForm = ({ onSubmit, tags, setTags }) => {
-  console.log('tags', tags);
-
   const [inputValues, setInputValues] = useState({
     name: '',
     price: 0,

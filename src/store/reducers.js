@@ -23,7 +23,8 @@ import {
 
 const initialState = {
   auth: false,
-  products: [],
+  productDetail: {},
+  productList: [],
   tags: [],
   ui: {
     loading: false,
@@ -42,15 +43,27 @@ export function auth(state = initialState.auth, action) {
   }
 }
 
-// export function tags() {}
-
-export function products(state = initialState.products, action) {
+export function products(state = initialState.productList, action) {
   switch (action.type) {
     case PRODUCTS_LOADED_SUCCESS:
       return action.payload;
     case PRODUCT_CREATED_SUCCESS:
-      // ojo con esto, hay que probarlo
       return action.payload;
+    case PRODUCT_CREATED_FAILURE:
+    // TODO manejar error
+    default:
+      return state;
+  }
+}
+
+export function productDetail(state = initialState.productDetail, action) {
+  switch (action.type) {
+    case PRODUCT_DETAIL_REQUEST:
+      return action.payload;
+    case PRODUCT_DETAIL_SUCCESS:
+      return action.payload;
+    case PRODUCT_DETAIL_FAILURE:
+    // TODO manejar error
     default:
       return state;
   }

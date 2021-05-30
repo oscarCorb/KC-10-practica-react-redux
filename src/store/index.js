@@ -13,7 +13,6 @@ const configureStore = ({ preloadedState /* , history */ }) => {
     preloadedState,
     composeWithDevTools()
   );
-  console.log('store', store.getState());
   return store;
 };
 
