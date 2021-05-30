@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from '../../../api/products';
 
 import { getProducts } from '../../../store/selectors';
-import { productsLoaded } from '../../../store/actions';
+import { productsLoadedAction } from '../../../store/actions';
 
 import Layout from '../../layout/Layout';
 import { defaultFilters, filterProducts } from '../ProductFilters/filters';
@@ -12,7 +12,6 @@ import ProductList from './ProductList';
 import './ProudctListPage.css';
 
 const ProudctListPage = () => {
-  // const [productList, setProductList] = useState([]);
   const [formValues, setFormValues] = useState(defaultFilters);
   const [filteredProducts, setFilteredProducts] = useState({});
   const [filtersOn, setFiltersOn] = useState(false);
@@ -30,8 +29,7 @@ const ProudctListPage = () => {
 
   useEffect(() => {
     getProductList().then((data) => {
-      // setProductList(data.reverse().map((item) => item));
-      dispatch(productsLoaded(data));
+      dispatch(productsLoadedAction(data));
     });
   }, []);
 

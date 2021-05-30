@@ -146,23 +146,61 @@ export const tagsAction = (tags) => {
     dispatch(tagsLoadedRequest(tags));
     try {
       const tags = await api.products.getTags();
-      console.log('tags ->', tags);
-      // setTags(tags);
       dispatch(tagsLoadedSuccess(tags));
     } catch (error) {
       dispatch(tagsLoadedFailure(error));
     }
   };
 };
-tagsAction();
 
 // PRODUCTS LOADING
-export const productsLoaded = (products) => {
+export const productsLoadedRequest = (productList) => {
   return {
-    type: PRODUCTS_LOADED_SUCCESS,
-    payload: products,
+    type: PRODUCTS_LOADED_REQUEST,
+    payload: productList,
   };
 };
+
+export const productsLoadedSuccess = (productList) => {
+  return {
+    type: PRODUCTS_LOADED_SUCCESS,
+    payload: productList,
+  };
+};
+
+export const productsLoadedFailure = (error) => {
+  return {
+    type: PRODUCTS_LOADED_FAILURE,
+    payload: error,
+    error: true,
+  };
+};
+
+// PRODUCTS LOADING middleware
+export const productsLoadedAction = (productList) => {
+  return async function (dispatch, getSate, { api, history }) {
+    dispatch(productsLoadedRequest(productList));
+    try {
+      const productList = await api.products.getProductList();
+      dispatch(productsLoadedSuccess(productList));
+    } catch (error) {
+      dispatch(productsLoadedFailure(error));
+    }
+  };
+};
+
+// // TAGS middleware
+// export const tagsAction = (tags) => {
+//   return async function (dispatch, getState, { api, history }) {
+//     dispatch(tagsLoadedRequest(tags));
+//     try {
+//       const tags = await api.products.getTags();
+//       dispatch(tagsLoadedSuccess(tags));
+//     } catch (error) {
+//       dispatch(tagsLoadedFailure(error));
+//     }
+//   };
+// };
 
 // UI RESET ERROR
 export const resetError = () => {
