@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { getTags } from '../../../api/products';
-
 import FormField from '../../shared/FormField';
 import FormButton from '../../shared/FormButton';
 
 import { getTagList } from '../../../store/selectors';
-import { connect } from 'react-redux';
-import { tagsLoadedRequest } from '../../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { tagsAction } from '../../../store/actions';
 
-const CreateNewProductForm = ({ onSubmit, tags, setTags }) => {
+const CreateNewProductForm = ({ onSubmit }) => {
   const [inputValues, setInputValues] = useState({
     name: '',
     price: 0,
@@ -18,12 +16,11 @@ const CreateNewProductForm = ({ onSubmit, tags, setTags }) => {
     photo: '',
   });
 
+  const dispatch = useDispatch();
+  const tags = useSelector(getTagList);
+
   useEffect(() => {
-    const getTagList = async () => {
-      const tags = await getTags();
-      setTags(tags);
-    };
-    getTagList();
+    dispatch(tagsAction(tags));
   }, []);
 
   const handleChange = (event) => {
@@ -173,19 +170,4 @@ const CreateNewProductForm = ({ onSubmit, tags, setTags }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    tags: getTagList(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    setTags: (tags) => dispatch(tagsLoadedRequest(tags)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateNewProductForm);
+export default CreateNewProductForm;

@@ -42,21 +42,20 @@ export const authLoginFailure = (error) => {
   };
 };
 
-// middleware
+// AUTH LOGIN middleware
 export const loginAction = (credentials, rememberMe, history, location) => {
   return async function (dispatch, getState, { api, history }) {
     dispatch(authLoginRequest());
     try {
       await api.auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
-      // onLogin();
       history.push('/');
       // const { from } = location.state || { from: { pathname: '/' } };
       // history.replace(from);
     } catch (error) {
       dispatch(authLoginFailure(error));
-      console.log('ERROR ->', error);
-      // TODO: Mostrar error al usuario, ahora no queda claro
+      console.log('ERROR', error);
+      // TODO: Mostrar el error al usuario, que ahora no queda claro
     }
   };
 };
@@ -140,6 +139,22 @@ export const tagsLoadedFailure = (error) => {
     error: true,
   };
 };
+
+// TAGS middleware
+export const tagsAction = (tags) => {
+  return async function (dispatch, getState, { api, history }) {
+    dispatch(tagsLoadedRequest(tags));
+    try {
+      const tags = await api.products.getTags();
+      console.log('tags ->', tags);
+      // setTags(tags);
+      dispatch(tagsLoadedSuccess(tags));
+    } catch (error) {
+      dispatch(tagsLoadedFailure(error));
+    }
+  };
+};
+tagsAction();
 
 // PRODUCTS LOADING
 export const productsLoaded = (products) => {
