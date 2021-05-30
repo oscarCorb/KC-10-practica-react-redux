@@ -21,6 +21,8 @@ import {
   UI_RESET_ERROR,
 } from './types';
 
+import { login } from '../api/auth';
+
 // AUTH LOGIN
 export const authLoginRequest = () => {
   return {
@@ -42,15 +44,23 @@ export const authLoginFailure = (error) => {
   };
 };
 
-// pasar aquí la lógica del componente del login
-// antes creo que hay que hacer el middleware Thunk
-
 // middleware
-// export const loginAction = (credentials) => {
-//   return async function (dispatch, getState, { api, history }) {
-//     //
-//   };
-// };
+export const loginAction = (credentials, rememberMe, history, location) => {
+  return async function (dispatch, getState /* , { api, history } */) {
+    dispatch(authLoginRequest());
+    try {
+      await login(credentials, rememberMe);
+      dispatch(authLoginSuccess());
+      // onLogin();
+      // history.push('/');
+      const { from } = location.state || { from: { pathname: '/' } };
+      history.replace(from);
+    } catch (error) {
+      dispatch(authLoginFailure(error));
+      // TODO: Mostrar error al usuario, ahora no queda claro
+    }
+  };
+};
 
 export const authLogout = () => {
   return {
