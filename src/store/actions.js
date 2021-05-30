@@ -21,8 +21,6 @@ import {
   UI_RESET_ERROR,
 } from './types';
 
-import { login } from '../api/auth';
-
 // AUTH LOGIN
 export const authLoginRequest = () => {
   return {
@@ -46,17 +44,18 @@ export const authLoginFailure = (error) => {
 
 // middleware
 export const loginAction = (credentials, rememberMe, history, location) => {
-  return async function (dispatch, getState /* , { api, history } */) {
+  return async function (dispatch, getState, { api, history }) {
     dispatch(authLoginRequest());
     try {
-      await login(credentials, rememberMe);
+      await api.auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
       // onLogin();
-      // history.push('/');
-      const { from } = location.state || { from: { pathname: '/' } };
-      history.replace(from);
+      history.push('/');
+      // const { from } = location.state || { from: { pathname: '/' } };
+      // history.replace(from);
     } catch (error) {
       dispatch(authLoginFailure(error));
+      console.log('ERROR ->', error);
       // TODO: Mostrar error al usuario, ahora no queda claro
     }
   };
