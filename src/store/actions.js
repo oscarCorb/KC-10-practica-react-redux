@@ -66,33 +66,47 @@ export const authLogout = () => {
   };
 };
 
-// PRODUCTS CREATION ======== ****** ======== *******
-// PRODUCTS CREATION ======== ****** ======== *******
-// PRODUCTS CREATION ======== ****** ======== *******
-export const productsCreated = (products) => {
+// PRODUCT CREATION
+export const productsCreatedRequest = (newProduct) => {
   return {
-    type: PRODUCT_CREATED_SUCCESS,
-    payload: products,
+    type: PRODUCT_CREATED_REQUEST,
+    payload: newProduct,
   };
 };
 
-export const productsCreatedSuccess = (product) => {
+export const productsCreatedSuccess = (newProduct) => {
   return {
     type: PRODUCT_CREATED_SUCCESS,
-    payload: product,
+    payload: newProduct,
   };
 };
 
-export const productsCreatedFailure = (product) => {
+export const productsCreatedFailure = (error) => {
   return {
     type: PRODUCT_CREATED_FAILURE,
-    payload: product,
+    payload: error,
     error: true,
   };
 };
-// PRODUCTS CREATION ======== ****** ======== *******
-// PRODUCTS CREATION ======== ****** ======== *******
-// PRODUCTS CREATION ======== ****** ======== *******
+
+// PRODUCT CREATION middleware
+// export const productCreatedAction = (newProduct) => {
+//   // console.log('newProduct', newProduct);
+//   return async function (dispatch, getState, { api, history }) {
+//     dispatch(productsCreatedRequest(newProduct));
+//     console.log('1');
+//     try {
+//       // const { id } = await createProduct(newProductData);
+//       const { id } = await api.product.createProduct(newProduct);
+//       console.log('2');
+//       // console.log('id:', id);
+//       // history.push(`/advert/${id}`);
+//       dispatch(productsCreatedSuccess());
+//     } catch (error) {
+//       dispatch(productsCreatedFailure(error));
+//     }
+//   };
+// };
 
 // PRODUCT DETAIL
 export const productDetailRequest = (product) => {
@@ -129,6 +143,45 @@ export const productDetailAction = (productId) => {
       if (error.status === 404) {
         return history.push('/404');
       }
+    }
+  };
+};
+
+// PRODUCT DELETION
+export const productDeletedRequest = (productId) => {
+  return {
+    type: PRODUCT_DELETED_REQUEST,
+    payload: productId,
+  };
+};
+
+export const productDeletedSuccess = (productId) => {
+  return {
+    type: PRODUCT_DELETED_SUCCESS,
+    payload: productId,
+  };
+};
+
+export const productDeletedFailure = (error) => {
+  return {
+    type: PRODUCT_DELETED_FAILURE,
+    payload: error,
+    error: true,
+  };
+};
+
+// PRODUCT DELETION middleware
+export const productDeletedAction = (productId, confirmDeletion) => {
+  return async function (dispatch, getState, { api, history }) {
+    dispatch(productDeletedRequest(productId));
+    try {
+      if (confirmDeletion) {
+        await api.products.deleteProduct(productId);
+        history.push('/');
+      }
+      dispatch(productDeletedSuccess(productId));
+    } catch (error) {
+      dispatch(productDeletedFailure(error));
     }
   };
 };

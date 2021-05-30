@@ -43,7 +43,7 @@ export function auth(state = initialState.auth, action) {
   }
 }
 
-export function products(state = initialState.productList, action) {
+export function productList(state = initialState.productList, action) {
   switch (action.type) {
     case PRODUCTS_LOADED_SUCCESS:
       return action.payload;

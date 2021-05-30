@@ -7,9 +7,13 @@ import Layout from '../../layout/Layout';
 import { useHistory } from 'react-router';
 
 import './CreateNewProductPage.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductDetail } from '../../../store/selectors';
+import { productCreatedAction } from '../../../store/actions';
 
 const CreateNewProductPage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (newProductData) => {
     try {
@@ -20,6 +24,7 @@ const CreateNewProductPage = () => {
       console.error(error);
       // TODO: Mostrar error al usuario para mejorar ux
     }
+    // dispatch(productCreatedAction(newProductData));
   };
 
   return (

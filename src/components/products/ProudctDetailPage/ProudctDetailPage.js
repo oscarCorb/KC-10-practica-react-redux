@@ -3,17 +3,16 @@ import Layout from '../../layout/Layout';
 import Modal from '../../shared/Modal';
 import Button from '../../shared/Button';
 
-import { deleteProduct } from '../../../api/products';
-
 import placeholderImg from '../../../assets/image_placeholder.png';
-import { useHistory } from 'react-router';
 import './ProudctDetailPage.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { productDetailAction } from '../../../store/actions';
+import {
+  productDetailAction,
+  productDeletedAction,
+} from '../../../store/actions';
 import { getProductDetail } from '../../../store/selectors';
 
 const ProudctDetailPage = ({ match }) => {
-  const history = useHistory();
   const productId = match.params.id;
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -26,11 +25,8 @@ const ProudctDetailPage = ({ match }) => {
     setDisplayModal(!displayModal);
   };
 
-  const deleteProductFn = async (confirmDeletion) => {
-    if (confirmDeletion) {
-      await deleteProduct(productId);
-      history.push('/');
-    }
+  const deleteProductFn = (confirmDeletion) => {
+    dispatch(productDeletedAction(productId, confirmDeletion));
   };
 
   useEffect(() => {
