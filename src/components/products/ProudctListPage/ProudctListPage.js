@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductList } from '../../../api/products';
 
 import { getProducts } from '../../../store/selectors';
 import { productsLoadedAction } from '../../../store/actions';
@@ -28,9 +27,7 @@ const ProudctListPage = () => {
   };
 
   useEffect(() => {
-    getProductList().then((data) => {
-      dispatch(productsLoadedAction(data));
-    });
+    dispatch(productsLoadedAction(productList));
   }, []);
 
   return (

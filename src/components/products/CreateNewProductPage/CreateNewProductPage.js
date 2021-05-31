@@ -2,29 +2,17 @@ import React from 'react';
 
 import CreateNewProductForm from '../CreateNewProductForm';
 
-import { createProduct } from '../../../api/products';
 import Layout from '../../layout/Layout';
-import { useHistory } from 'react-router';
 
 import './CreateNewProductPage.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProductDetail } from '../../../store/selectors';
+import { useDispatch } from 'react-redux';
 import { productCreatedAction } from '../../../store/actions';
 
 const CreateNewProductPage = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleSubmit = async (newProductData) => {
-    try {
-      const { id } = await createProduct(newProductData);
-      history.push(`/advert/${id}`);
-      // TODO: Mostrar mensaje: 'producto creado correctamente'
-    } catch (error) {
-      console.error(error);
-      // TODO: Mostrar error al usuario para mejorar ux
-    }
-    // dispatch(productCreatedAction(newProductData));
+    dispatch(productCreatedAction(newProductData));
   };
 
   return (

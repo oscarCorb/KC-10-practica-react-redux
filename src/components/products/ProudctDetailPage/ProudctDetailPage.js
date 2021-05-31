@@ -19,7 +19,7 @@ const ProudctDetailPage = ({ match }) => {
   const [displayModal, setDisplayModal] = useState(false);
 
   const dispatch = useDispatch();
-  const product = useSelector(getProductDetail);
+  const product = useSelector((state) => getProductDetail(state, productId));
 
   const handleClickModal = () => {
     setDisplayModal(!displayModal);

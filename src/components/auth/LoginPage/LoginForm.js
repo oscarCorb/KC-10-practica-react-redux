@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import FormButton from '../../shared/FormButton';
 import { FormField } from '../../shared/index';
 import './LoginForm.css';

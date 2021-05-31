@@ -49,13 +49,12 @@ export const loginAction = (credentials, rememberMe, history, location) => {
     try {
       await api.auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
-      history.push('/');
-      // const { from } = location.state || { from: { pathname: '/' } };
-      // history.replace(from);
+      const { from } = history.location.state || { from: { pathname: '/' } };
+      history.replace(from);
     } catch (error) {
       dispatch(authLoginFailure(error));
       console.log('ERROR', error);
-      // TODO: Mostrar el error al usuario, que ahora no queda claro
+      // TODO: Mostrar el error al usuario
     }
   };
 };
@@ -67,10 +66,9 @@ export const authLogout = () => {
 };
 
 // PRODUCT CREATION
-export const productsCreatedRequest = (newProduct) => {
+export const productsCreatedRequest = () => {
   return {
     type: PRODUCT_CREATED_REQUEST,
-    payload: newProduct,
   };
 };
 
@@ -90,29 +88,23 @@ export const productsCreatedFailure = (error) => {
 };
 
 // PRODUCT CREATION middleware
-// export const productCreatedAction = (newProduct) => {
-//   // console.log('newProduct', newProduct);
-//   return async function (dispatch, getState, { api, history }) {
-//     dispatch(productsCreatedRequest(newProduct));
-//     console.log('1');
-//     try {
-//       // const { id } = await createProduct(newProductData);
-//       const { id } = await api.product.createProduct(newProduct);
-//       console.log('2');
-//       // console.log('id:', id);
-//       // history.push(`/advert/${id}`);
-//       dispatch(productsCreatedSuccess());
-//     } catch (error) {
-//       dispatch(productsCreatedFailure(error));
-//     }
-//   };
-// };
+export const productCreatedAction = (newProduct) => {
+  return async function (dispatch, getState, { api, history }) {
+    dispatch(productsCreatedRequest());
+    try {
+      const product = await api.products.createProduct(newProduct);
+      dispatch(productsCreatedSuccess(product));
+      history.push(`/advert/${product.id}`);
+    } catch (error) {
+      dispatch(productsCreatedFailure(error));
+    }
+  };
+};
 
 // PRODUCT DETAIL
-export const productDetailRequest = (product) => {
+export const productDetailRequest = () => {
   return {
     type: PRODUCT_DETAIL_REQUEST,
-    payload: product,
   };
 };
 
@@ -134,12 +126,13 @@ export const productDetailFailure = (error) => {
 // PRODUCT DETAIL middleware
 export const productDetailAction = (productId) => {
   return async function (dispatch, getState, { api, history }) {
-    dispatch(productDetailRequest(productId));
+    dispatch(productDetailRequest());
     try {
       const productDetail = await api.products.getProduct(productId);
       dispatch(productDetailSuccess(productDetail));
     } catch (error) {
       dispatch(productDetailFailure(error));
+      // ***** NO SÉ SI ESTE ES EL MEJOR SITIO PARA ESTE ERROR ******
       if (error.status === 404) {
         return history.push('/404');
       }
@@ -148,10 +141,9 @@ export const productDetailAction = (productId) => {
 };
 
 // PRODUCT DELETION
-export const productDeletedRequest = (productId) => {
+export const productDeletedRequest = () => {
   return {
     type: PRODUCT_DELETED_REQUEST,
-    payload: productId,
   };
 };
 
@@ -173,13 +165,13 @@ export const productDeletedFailure = (error) => {
 // PRODUCT DELETION middleware
 export const productDeletedAction = (productId, confirmDeletion) => {
   return async function (dispatch, getState, { api, history }) {
-    dispatch(productDeletedRequest(productId));
+    dispatch(productDeletedRequest());
     try {
       if (confirmDeletion) {
         await api.products.deleteProduct(productId);
         history.push('/');
+        dispatch(productDeletedSuccess(productId));
       }
-      dispatch(productDeletedSuccess(productId));
     } catch (error) {
       dispatch(productDeletedFailure(error));
     }
@@ -223,10 +215,9 @@ export const tagsAction = (tags) => {
 };
 
 // PRODUCTS LOADING
-export const productsLoadedRequest = (productList) => {
+export const productsLoadedRequest = () => {
   return {
     type: PRODUCTS_LOADED_REQUEST,
-    payload: productList,
   };
 };
 
@@ -246,9 +237,9 @@ export const productsLoadedFailure = (error) => {
 };
 
 // PRODUCTS LOADING middleware
-export const productsLoadedAction = (productList) => {
+export const productsLoadedAction = () => {
   return async function (dispatch, getSate, { api, history }) {
-    dispatch(productsLoadedRequest(productList));
+    dispatch(productsLoadedRequest());
     try {
       const productList = await api.products.getProductList();
       dispatch(productsLoadedSuccess(productList));
