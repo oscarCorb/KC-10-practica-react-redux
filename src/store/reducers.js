@@ -68,7 +68,6 @@ export function tags(state = initialState.tags, action) {
       return action.payload;
     case TAGS_LOADED_SUCCESS:
       return action.payload;
-    // TODO falta manejar error
     default:
       return state;
   }

@@ -132,7 +132,6 @@ export const productDetailAction = (productId) => {
       dispatch(productDetailSuccess(productDetail));
     } catch (error) {
       dispatch(productDetailFailure(error));
-      // ***** NO SÉ SI ESTE ES EL MEJOR SITIO PARA ESTE ERROR ******
       if (error.status === 404) {
         return history.push('/404');
       }

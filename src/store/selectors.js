@@ -7,3 +7,5 @@ export const getProductDetail = (state, productId) =>
   state.products.data.find((item) => item.id === productId);
 
 export const getTagList = (state) => state.tags;
+
+export const getUi = (state) => state.ui;

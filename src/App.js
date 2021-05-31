@@ -1,9 +1,4 @@
-import {
-  Route,
-  // BrowserRouter as Router,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 import { PrivateRoute } from './components/auth';
 
@@ -17,17 +12,6 @@ import './App.css';
 import LogoutPage from './components/auth/LogoutPage/LogoutPage';
 
 function App() {
-  // const [isLogged, setIsLogged] = useState(props.isInitiallyLogged);
-
-  // const handleLogin = () => {};
-  // const handleLogout = () => {};
-
-  // const authValue = {
-  //   isLogged: false,
-  //   onLogout: handleLogout,
-  //   onLogin: handleLogin,
-  // };
-
   return (
     <Switch>
       <PrivateRoute exact path="/advert/new">

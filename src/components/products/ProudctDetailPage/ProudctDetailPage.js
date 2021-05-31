@@ -10,7 +10,8 @@ import {
   productDetailAction,
   productDeletedAction,
 } from '../../../store/actions';
-import { getProductDetail } from '../../../store/selectors';
+import { getProductDetail, getUi } from '../../../store/selectors';
+import { Redirect, useHistory } from 'react-router';
 
 const ProudctDetailPage = ({ match }) => {
   const productId = match.params.id;
@@ -20,6 +21,8 @@ const ProudctDetailPage = ({ match }) => {
 
   const dispatch = useDispatch();
   const product = useSelector((state) => getProductDetail(state, productId));
+  const history = useHistory();
+  const { loading, error } = useSelector(getUi);
 
   const handleClickModal = () => {
     setDisplayModal(!displayModal);
@@ -32,6 +35,10 @@ const ProudctDetailPage = ({ match }) => {
   useEffect(() => {
     dispatch(productDetailAction(productId));
   }, []);
+
+  if (error?.statusCode === 401) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     product && (
