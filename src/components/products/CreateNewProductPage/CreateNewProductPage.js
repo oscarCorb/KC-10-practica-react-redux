@@ -12,7 +12,7 @@ import { Redirect } from 'react-router';
 
 const CreateNewProductPage = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector(getUi);
+  const { error } = useSelector(getUi);
 
   const handleSubmit = async (newProductData) => {
     dispatch(productCreatedAction(newProductData));
@@ -23,13 +23,12 @@ const CreateNewProductPage = () => {
   }
 
   return (
-    <div>
-      <Layout />
+    <Layout>
       <div className="new-product-page">
         <h2 className="section-title title">Crear producto</h2>
         <CreateNewProductForm onSubmit={handleSubmit} />
       </div>
-    </div>
+    </Layout>
   );
 };
 

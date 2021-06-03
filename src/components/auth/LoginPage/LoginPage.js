@@ -18,8 +18,7 @@ const LoginPage = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <Layout />
+    <Layout>
       <div className="login-page-container">
         <h2 className="section-title title">Entrar</h2>
         <LoginForm
@@ -28,7 +27,7 @@ const LoginPage = ({ onLogin }) => {
           rememberMe={rememberMe}
         />
       </div>
-    </div>
+    </Layout>
   );
 };
 
