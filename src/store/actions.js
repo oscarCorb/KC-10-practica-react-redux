@@ -1,3 +1,4 @@
+import { getProductDetail } from './selectors';
 import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -126,6 +127,10 @@ export const productDetailFailure = (error) => {
 // PRODUCT DETAIL middleware
 export const productDetailAction = (productId) => {
   return async function (dispatch, getState, { api, history }) {
+    const productLoaded = getProductDetail(getState(), productId);
+    if (productLoaded) {
+      return;
+    }
     dispatch(productDetailRequest());
     try {
       const productDetail = await api.products.getProduct(productId);

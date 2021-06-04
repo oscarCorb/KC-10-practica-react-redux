@@ -18,7 +18,7 @@ const ProudctListPage = () => {
 
   const dispatch = useDispatch();
   const productList = useSelector(getProducts);
-  const { loading, error } = useSelector(getUi);
+  const { error } = useSelector(getUi);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,20 +38,21 @@ const ProudctListPage = () => {
 
   return (
     <div>
-      <Layout />
-      {productList.length > 0 && (
-        <ProductFiltersForm
-          onSubmit={handleSubmit}
-          productList={productList}
-          setFormValues={setFormValues}
-          formValues={formValues}
-          setFiltersOn={setFiltersOn}
+      <Layout>
+        {productList.length > 0 && (
+          <ProductFiltersForm
+            onSubmit={handleSubmit}
+            productList={productList}
+            setFormValues={setFormValues}
+            formValues={formValues}
+            setFiltersOn={setFiltersOn}
+          />
+        )}
+        <ProductList
+          productList={!filtersOn ? productList : filteredProducts}
+          productsCount={productList.length}
         />
-      )}
-      <ProductList
-        productList={!filtersOn ? productList : filteredProducts}
-        productsCount={productList.length}
-      />
+      </Layout>
     </div>
   );
 };

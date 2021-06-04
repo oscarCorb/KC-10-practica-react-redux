@@ -50,7 +50,7 @@ export function products(state = initialState.products, action) {
     case PRODUCTS_LOADED_SUCCESS:
       return { ...state, loaded: true, data: action.payload };
     case PRODUCT_CREATED_SUCCESS:
-      // case PRODUCT_DETAIL_SUCCESS:
+    case PRODUCT_DETAIL_SUCCESS:
       return { ...state, data: [...state.data, action.payload] };
     case PRODUCT_DELETED_SUCCESS:
       return {

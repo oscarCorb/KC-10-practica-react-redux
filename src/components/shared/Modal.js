@@ -6,12 +6,12 @@ import './Modal.css';
 const Modal = (props) => {
   const handleClickYes = () => {
     props.onDisplayModal(true);
-    props.onConfirm(true);
+    props.onConfirmDeletion(true);
   };
 
   const handleClickNo = () => {
     props.onDisplayModal(false);
-    props.onConfirm(false);
+    props.onConfirmDeletion(false);
   };
 
   return (

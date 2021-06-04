@@ -4,7 +4,7 @@ export const getIsLogged = (state) => state.auth;
 export const getProducts = (state) => state.products.data.reverse();
 
 export const getProductDetail = (state, productId) =>
-  state.products.data.find((item) => item.id === productId);
+  state.products.data.find((product) => product.id === productId);
 
 export const getTagList = (state) => state.tags;
 
