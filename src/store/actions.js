@@ -54,15 +54,28 @@ export const loginAction = (credentials, rememberMe, history, location) => {
       history.replace(from);
     } catch (error) {
       dispatch(authLoginFailure(error));
-      console.log('ERROR', error);
+      console.error('ERROR', error);
       // TODO: Mostrar el error al usuario
     }
   };
 };
 
+// LOGOUT
 export const authLogout = () => {
   return {
     type: AUTH_LOGOUT,
+  };
+};
+
+// LOGOUT middleware
+export const logoutAction = () => {
+  return async function (dispatch, getState, { api }) {
+    dispatch(authLogout());
+    try {
+      await api.auth.logout().then();
+    } catch (error) {
+      console.error('ERROR', error);
+    }
   };
 };
 
