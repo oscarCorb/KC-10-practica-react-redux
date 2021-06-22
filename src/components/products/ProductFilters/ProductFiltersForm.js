@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { getTags } from '../../../api/products';
+import { tagsAction } from '../../../store/actions';
+import { getTagList } from '../../../store/selectors';
 import RadioGroup from '../../shared/RadioGroup';
 import { defaultFilters, saleFilter } from './filters';
 import './ProductFiltersForm.css';
 
 const ProductFiltersForm = (props) => {
-  const [tagList, setTagList] = useState([]);
+  const dispatch = useDispatch();
+  const tagList = useSelector(getTagList);
+
+  useEffect(() => {
+    dispatch(tagsAction(tagList));
+  }, []);
 
   const handleChange = (event) => {
     props.setFormValues((oldValues) => ({
@@ -37,12 +44,6 @@ const ProductFiltersForm = (props) => {
     // TODO buscar manera más eficiente de limpiar filtros y renderizar productList
     history.push('/');
   };
-
-  useEffect(() => {
-    getTags()
-      .then((data) => setTagList(data))
-      .catch((error) => console.error('ERROR.', error));
-  }, []);
 
   return (
     <div className="filter-container">
@@ -101,10 +102,7 @@ const ProductFiltersForm = (props) => {
                     type="checkbox"
                     name="tags"
                     value={tag}
-                    // esto provoca un warning pero me hace falta para desmarcar los checkboxes después del 'reset filters'
-                    checked={
-                      props.formValues.tags.length && props.formValues.tags[`${tag}`]
-                    }
+                    checked={props.formValues.tags.includes(tag)}
                     onChange={handleTags}
                   />
                   <label htmlFor={`filter-tag-${tag}`}>{tag}</label>
