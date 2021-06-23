@@ -24,7 +24,7 @@ const ProudctDetailPage = ({ match }) => {
   };
 
   const deleteProductConfirm = (confirmDeletion) => {
-    dispatch(productDeletedAction(productId, confirmDeletion));
+    confirmDeletion && dispatch(productDeletedAction(productId));
   };
 
   useEffect(() => {

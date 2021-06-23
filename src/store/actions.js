@@ -180,15 +180,13 @@ export const productDeletedFailure = (error) => {
 };
 
 // PRODUCT DELETION middleware
-export const productDeletedAction = (productId, confirmDeletion) => {
+export const productDeletedAction = (productId) => {
   return async function (dispatch, getState, { api, history }) {
     dispatch(productDeletedRequest());
     try {
-      if (confirmDeletion) {
-        await api.products.deleteProduct(productId);
-        history.push('/');
-        dispatch(productDeletedSuccess(productId));
-      }
+      await api.products.deleteProduct(productId);
+      history.push('/');
+      dispatch(productDeletedSuccess(productId));
     } catch (error) {
       dispatch(productDeletedFailure(error));
     }
