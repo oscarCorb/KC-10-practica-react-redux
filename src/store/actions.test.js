@@ -1,10 +1,15 @@
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import {
+  loginAction,
   productDetailFailure,
   productDetailRequest,
   productsCreatedRequest,
   productsCreatedSuccess,
 } from './actions';
 import {
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
   PRODUCT_CREATED_REQUEST,
   PRODUCT_CREATED_SUCCESS,
   PRODUCT_DETAIL_FAILURE,
@@ -47,5 +52,33 @@ describe('productDetailFailure', () => {
       error: true,
     };
     expect(result).toEqual(expectedAction);
+  });
+});
+
+// ASYNC ACTION MOCK TEST
+const createStore = (extraArgument) => (state) => {
+  const middleware = [thunk.withExtraArgument(extraArgument)];
+  const mockStore = configureStore(middleware);
+  const store = mockStore(state);
+  return store;
+};
+
+describe('loginAction', () => {
+  describe('when login API resolve', () => {
+    const credentials = 'credentials';
+    const rememberMe = 'rememberMe';
+    const history = { location: {}, replace: jest.fn() };
+    const api = { auth: { login: jest.fn().mockResolvedValue() } };
+    const store = createStore({ api, history })();
+
+    test('should dispatch AUTH_LOGIN_SUCCESS action', async () => {
+      await store.dispatch(loginAction(credentials, rememberMe));
+      const actions = store.getActions();
+      expect(actions).toEqual([
+        { type: AUTH_LOGIN_REQUEST },
+        { type: AUTH_LOGIN_SUCCESS },
+      ]);
+      expect(api.auth.login).toBeCalledWith(credentials, rememberMe);
+    });
   });
 });
