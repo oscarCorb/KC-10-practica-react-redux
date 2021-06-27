@@ -13,7 +13,7 @@ describe('getProducts', () => {
     expect(result).toHaveLength(data.length);
   });
 
-  test('should return products sorted by createdAt', () => {
+  test('should return products sorted by createdAt key', () => {
     const result = getProducts({ products: { data } });
     expect(result[0].id).toBe('a');
   });
